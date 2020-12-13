@@ -26,18 +26,18 @@ public class Application {
         books.add(bookDao.findById(2));
         books.add(bookDao.findById(10));
 
-        User admin = userDao.findById(1);
-        Order order = new Order();
-        order.setId(4);
-        order.setReturned(false);
-        order.setIssueDate(LocalDate.now());
-        order.setReturnDate(LocalDate.now().plusDays(5));
-        order.setPenalty(0);
-        order.setBooks(books);
+//        Order order = new Order();
+//        order.setId(5);
+//        order.setReturned(false);
+//        order.setIssueDate(LocalDate.now());
+//        order.setReturnDate(LocalDate.now().plusDays(5));
+//        order.setPenalty(0);
+//        order.setBooks(books);
+//        orderDao.create(order);
 
-        orderDao.create(order);
-        userDao.setOrderToUser(admin, orderDao.findById(3));
 
+        orderDao.delete(4);
+        orderDao.delete(5);
        List<Order> orders = orderDao.findAll();
         System.out.println("========================All orders===========================");
 
@@ -46,7 +46,7 @@ public class Application {
        }
         System.out.println("=========================Users================================");
         List<User> users = userDao.findAll();
-        for(User user: users)
-            System.out.println(user);
+        for(User user1: users)
+            System.out.println(user1);
     }
 }

@@ -10,6 +10,7 @@ public class Book {
     private LocalDate publishDate;
     private Integer quantity;
 
+
     public Book(){}
 
     public int getId() {

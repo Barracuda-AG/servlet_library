@@ -8,7 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-//TODO deal with unique books id
+
 public class JDBCOrderDao implements OrderDao {
     private Connection connection;
     private JDBCBookDao jdbcBookDao;
@@ -75,10 +75,13 @@ public class JDBCOrderDao implements OrderDao {
     @Override
     public void delete(int id) {
         try(PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE id = ?");
-        PreparedStatement ps1 = connection.prepareStatement("DELETE FROM orders_books WHERE order_id = ?")){
+        PreparedStatement ps1 = connection.prepareStatement("DELETE FROM orders_books WHERE order_id = ?");
+        PreparedStatement ps2 = connection.prepareStatement("UPDATE user SET order_id = null WHERE order_id = ?")){
             ps.setInt(1, id);
             ps1.setInt(1, id);
+            ps2.setInt(1, id);
 
+            ps2.execute();
             ps1.execute();
             ps.execute();
 
