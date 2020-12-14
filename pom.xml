@@ -36,6 +36,11 @@
       <version>1.2</version>
       <scope>provided</scope>
     </dependency>
+      <dependency>
+          <groupId>taglibs</groupId>
+          <artifactId>standard</artifactId>
+          <version>1.1.2</version>
+      </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -45,6 +50,12 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>
       <version>2.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
@@ -88,7 +99,7 @@
           <version>2.2</version>
           <configuration>
             <port>8080</port>
-            <path>/</path>
+            <path>/api</path>
             <update>true</update>
           </configuration>
         </plugin>
