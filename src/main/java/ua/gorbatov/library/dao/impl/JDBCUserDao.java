@@ -65,11 +65,6 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public void update(User entity) {
-
-    }
-
-    @Override
     public void delete(int id) {
         try(PreparedStatement ps = connection.prepareStatement("DELETE FROM user WHERE id = ?")){
             ps.setInt(1, id);

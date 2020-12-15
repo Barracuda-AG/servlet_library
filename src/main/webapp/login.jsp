@@ -4,24 +4,26 @@
 
 <fmt:setBundle basename="messages"/>
 
-<html>
+<html lang="${locale}">
 <head>
     <title>Login</title>
 </head>
 <body>
 <fmt:message key="greetings"/>
-<form class="w3-container" method="POST" action="">
-    <div class="w3-section w3-left-align">
+<form  method="POST" action="">
+    <div>
         <label><b><fmt:message key="login"/></b></label>
-        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="<fmt:message key="login"/>" name="login" required>
+        <input type="text" placeholder="<fmt:message key="login"/>" name="login" required>
 
         <label><b><fmt:message key="password"/></b></label>
-        <input class="w3-input w3-border" type="password" placeholder="<fmt:message key="password"/>" name="password" required>
+        <input type="password" placeholder="<fmt:message key="password"/>" name="password" required>
 
-        <button class="w3-button w3-block w3-teal w3-round-large w3-section w3-padding" type="submit">
+        <button type="submit">
             <fmt:message key="login"/>
         </button>
     </div>
+    <a href="index.jsp"><fmt:message key="login.title"/></a>
+
 </form>
 </body>
 </html>

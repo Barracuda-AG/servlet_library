@@ -74,10 +74,6 @@ public class JDBCBookDao implements BookDao {
         }
         return books;
     }
-    @Override
-    public void update(Book entity) {
-
-    }
 
     @Override
     public void delete(int id) {

@@ -68,11 +68,6 @@ public class JDBCOrderDao implements OrderDao {
     }
 
     @Override
-    public void update(Order entity) {
-
-    }
-
-    @Override
     public void delete(int id) {
         try(PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE id = ?");
         PreparedStatement ps1 = connection.prepareStatement("DELETE FROM orders_books WHERE order_id = ?");
