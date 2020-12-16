@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCOrderDao implements OrderDao {
-    private Connection connection;
-    private JDBCBookDao jdbcBookDao;
+    private final Connection connection;
+    private final JDBCBookDao jdbcBookDao;
 
     public JDBCOrderDao(Connection connection){
         this.connection = connection;
@@ -20,8 +20,7 @@ public class JDBCOrderDao implements OrderDao {
     @Override
     public void create(Order entity) {
 
-        try(PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (id,is_returned, issue_date, penalty, return_date) VALUES (?,?,?,?,?)")){
-
+        try(PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (id, is_returned, issue_date, penalty, return_date) VALUES (?,?,?,?,?)")){
             ps.setInt(1, entity.getId());
             ps.setBoolean(2, entity.isReturned());
             ps.setDate(3, Date.valueOf(entity.getIssueDate()));
@@ -103,9 +102,9 @@ public class JDBCOrderDao implements OrderDao {
             ps.execute();
         }
     }
-    private List<Book> getBooksFromOrder(int orderId) throws SQLException {
+    public List<Book> getBooksFromOrder(int orderId){
         List<Book> books = new ArrayList<>();
-        PreparedStatement ps = connection.prepareStatement("SELECT books_id FROM orders_books WHERE order_id = ?");
+        try(PreparedStatement ps = connection.prepareStatement("SELECT books_id FROM orders_books WHERE order_id = ?")){
         ps.setInt(1, orderId);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()){
@@ -113,8 +112,27 @@ public class JDBCOrderDao implements OrderDao {
             Book book = jdbcBookDao.findById(bookId);
             books.add(book);
         }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
         return books;
     }
+
+    @Override
+    public int getLastId() {
+        int lastId = 0;
+        try(PreparedStatement ps = connection.prepareStatement("SELECT coalesce(max(id),0) FROM orders;")) {
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next())
+                lastId = resultSet.getInt(1);
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+            return lastId;
+    }
+
     private Order extractFromResultSet(ResultSet resultSet) throws SQLException{
         Order order = new Order();
         order.setId(resultSet.getInt("id"));

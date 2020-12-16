@@ -5,8 +5,12 @@ import ua.gorbatov.library.entity.User;
 
 import java.util.List;
 
-public interface UserDao extends GenericDao<User>{
-     boolean setOrderToUser(User user, Order order);
-     List<User> findOnlyLibrarians();
-     List<User> findOnlyUsers();
+public interface UserDao extends GenericDao<User> {
+    void setOrderToUser(User user, Order order);
+
+    List<User> findOnlyLibrarians();
+
+    List<User> findOnlyUsers();
+
+    User findAdmin();
 }

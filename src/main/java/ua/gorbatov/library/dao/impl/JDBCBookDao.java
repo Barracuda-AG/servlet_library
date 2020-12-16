@@ -84,6 +84,16 @@ public class JDBCBookDao implements BookDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public void updateBookQuantity(int bookId,int quantity) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE book  SET quantity = ? WHERE id = ?")) {
+           ps.setInt(1, quantity);
+           ps.setInt(2, bookId);
+           ps.execute();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+            }
+        }
 
     @Override
     public void close() throws Exception {
@@ -93,4 +103,6 @@ public class JDBCBookDao implements BookDao {
             throw new RuntimeException(e);
         }
     }
+
+
 }

@@ -11,8 +11,8 @@ import java.util.List;
 
 //TODO add methods that change role
 public class JDBCUserDao implements UserDao {
-    private Connection connection;
-    private JDBCOrderDao jdbcOrderDao;
+    private final Connection connection;
+    private final JDBCOrderDao jdbcOrderDao;
 
     public JDBCUserDao(Connection connection){
         this.connection = connection;
@@ -82,12 +82,11 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
     }
-    public boolean setOrderToUser(User user, Order order){
+    public void setOrderToUser(User user, Order order){
         try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET order_id = ? WHERE id = ?")){
             ps.setInt(1, order.getId());
             ps.setInt(2, user.getId());
             ps.execute();
-            return true;
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
@@ -114,7 +113,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public List<User> findOnlyUsers() {
         List<User> users = new ArrayList<>();
-        try(Statement statement = connection.createStatement();) {
+        try(Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_USER'");
 
             while (resultSet.next()){
@@ -126,6 +125,19 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
         return users;
+    }
+    @Override
+    public User findAdmin(){
+        User user = null;
+        try(Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_ADMIN'");
+            while (resultSet.next()){
+                user = extractFromResultSet(resultSet);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return user;
     }
 
     private User extractFromResultSet(ResultSet resultSet) throws SQLException{

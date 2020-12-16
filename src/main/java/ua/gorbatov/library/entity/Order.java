@@ -13,6 +13,16 @@ public class Order {
 
     public Order(){}
 
+    public Order(int id,LocalDate issueDate, LocalDate returnDate, boolean isReturned,
+                 Integer penalty, List<Book> books) {
+        this.id = id;
+        this.issueDate = issueDate;
+        this.returnDate = returnDate;
+        this.isReturned = isReturned;
+        this.penalty = penalty;
+        this.books = books;
+    }
+
     public int getId() {
         return id;
     }
