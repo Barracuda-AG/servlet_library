@@ -13,4 +13,8 @@ public interface UserDao extends GenericDao<User> {
     List<User> findOnlyUsers();
 
     User findAdmin();
+
+    void changeRoleToLibrarian(int userId);
+
+    void changeRoleToUser(int userId);
 }

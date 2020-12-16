@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO add methods that change role
 public class JDBCUserDao implements UserDao {
     private final Connection connection;
     private final JDBCOrderDao jdbcOrderDao;
@@ -138,6 +137,30 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
         return user;
+    }
+
+    @Override
+    public void changeRoleToLibrarian(int userId) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET role = ? WHERE id = ?")){
+            ps.setString(1, Role.ROLE_LIBRARIAN.toString());
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void changeRoleToUser(int userId) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET role = ? WHERE id = ?")){
+            ps.setString(1, Role.ROLE_USER.toString());
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     private User extractFromResultSet(ResultSet resultSet) throws SQLException{

@@ -24,6 +24,7 @@ public class Application {
         UserService userService = new UserServiceImpl();
         BookService bookService = new BookServiceImpl();
         OrderService orderService = new OrderServiceImpl();
+
 //        List<Book> books =new ArrayList<>();
 //        books.add(bookService.findById(1));
 //        books.add(bookService.findById(5));
@@ -32,9 +33,7 @@ public class Application {
 //
 //        userService.setOrderToUser(userService.findAdmin(), orderService.findById(orderService.getLastId()));
 
-        System.out.println(orderService.findAll());
-        System.out.println(userService.findAdmin());
-
-
+        for(User user: userService.findAllUsers())
+            System.out.println(user);
     }
 }

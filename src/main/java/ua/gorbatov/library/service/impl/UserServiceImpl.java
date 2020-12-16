@@ -58,4 +58,14 @@ public class UserServiceImpl implements UserService {
     public void setOrderToUser(User user, Order order) {
         userDao.setOrderToUser(user, order);
     }
+
+    @Override
+    public void changeRoleToLibrarian(int userId) {
+        userDao.changeRoleToLibrarian(userId);
+    }
+
+    @Override
+    public void changeRoleToUser(int userId) {
+        userDao.changeRoleToUser(userId);
+    }
 }

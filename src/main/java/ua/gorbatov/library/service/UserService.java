@@ -14,4 +14,6 @@ public interface UserService {
     List<User> findOnlyUsers();
     User findAdmin();
     void setOrderToUser(User user, Order order);
+    void changeRoleToLibrarian(int userId);
+    void changeRoleToUser(int userId);
 }
