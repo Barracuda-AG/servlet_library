@@ -16,4 +16,5 @@ public interface UserService {
     void setOrderToUser(User user, Order order);
     void changeRoleToLibrarian(int userId);
     void changeRoleToUser(int userId);
+    User getUserByEmailPassword(String email, String password);
 }

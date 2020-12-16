@@ -10,10 +10,10 @@
 </head>
 <body>
 <fmt:message key="greetings"/>
-<form  method="POST" action="">
+<form  method="POST" action="/api/login">
     <div>
         <label><b><fmt:message key="login"/></b></label>
-        <input type="text" placeholder="<fmt:message key="login"/>" name="login" required>
+        <input type="text" placeholder="<fmt:message key="login"/>" name="email" required>
 
         <label><b><fmt:message key="password"/></b></label>
         <input type="password" placeholder="<fmt:message key="password"/>" name="password" required>

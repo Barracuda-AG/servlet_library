@@ -1,5 +1,6 @@
 package ua.gorbatov.library.dao.impl;
 
+import org.mindrot.jbcrypt.*;
 import ua.gorbatov.library.dao.UserDao;
 import ua.gorbatov.library.entity.Order;
 import ua.gorbatov.library.entity.Role;
@@ -8,6 +9,7 @@ import ua.gorbatov.library.entity.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class JDBCUserDao implements UserDao {
     private final Connection connection;
@@ -24,7 +26,7 @@ public class JDBCUserDao implements UserDao {
                 ps.setString(1, entity.getEmail());
                 ps.setString(2, entity.getFirstName());
                 ps.setString(3, entity.getLastName());
-                ps.setString(4, entity.getPassword());
+                ps.setString(4, BCrypt.hashpw(entity.getPassword(),BCrypt.gensalt()));
                 ps.setString(5, entity.getRole().toString());
 
                 ps.execute();
@@ -163,11 +165,28 @@ public class JDBCUserDao implements UserDao {
         }
     }
 
+    @Override
+    public User getUserByEmailPassword(String email, String password) {
+        User user = null;
+        try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE email = ?")){
+            ps.setString(1, email);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                user = extractFromResultSet(resultSet);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+         if(!BCrypt.checkpw(password, (user != null) ? user.getPassword() : null)) user = null;
+        return user;
+    }
+
     private User extractFromResultSet(ResultSet resultSet) throws SQLException{
 
             User user = new User();
             user.setId(resultSet.getInt("id"));
             user.setEmail(resultSet.getString("email"));
+            user.setPassword(resultSet.getString("password"));
             user.setFirstName(resultSet.getString("first_name"));
             user.setLastName(resultSet.getString("last_name"));
             user.setRole(Role.valueOf(resultSet.getString("role")));

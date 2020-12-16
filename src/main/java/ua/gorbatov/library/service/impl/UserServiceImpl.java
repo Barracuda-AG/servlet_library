@@ -68,4 +68,9 @@ public class UserServiceImpl implements UserService {
     public void changeRoleToUser(int userId) {
         userDao.changeRoleToUser(userId);
     }
+
+    @Override
+    public User getUserByEmailPassword(String email, String password) {
+        return userDao.getUserByEmailPassword(email, password);
+    }
 }

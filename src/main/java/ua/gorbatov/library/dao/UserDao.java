@@ -17,4 +17,6 @@ public interface UserDao extends GenericDao<User> {
     void changeRoleToLibrarian(int userId);
 
     void changeRoleToUser(int userId);
+
+    User getUserByEmailPassword(String email, String password);
 }
