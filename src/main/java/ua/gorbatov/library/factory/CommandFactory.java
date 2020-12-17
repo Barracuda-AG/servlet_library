@@ -1,9 +1,6 @@
 package ua.gorbatov.library.factory;
 
-import ua.gorbatov.library.command.Command;
-import ua.gorbatov.library.command.ErrorCommand;
-import ua.gorbatov.library.command.Login;
-import ua.gorbatov.library.command.Logout;
+import ua.gorbatov.library.command.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -20,6 +17,7 @@ public class CommandFactory {
         commandMap.put("/login", new Login());
         commandMap.put("/logout", new Logout());
         commandMap.put("/404", new ErrorCommand());
+        commandMap.put("/registration", new Registration());
     }
     public static CommandFactory getCommandFactory(){
         return commandFactory;

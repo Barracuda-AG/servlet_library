@@ -10,20 +10,17 @@
 </head>
 <body>
 <fmt:message key="greetings"/>
-<form  method="POST" action="/api/login">
-    <div>
-        <label><b><fmt:message key="login"/></b></label>
-        <input type="text" placeholder="<fmt:message key="login"/>" name="email" required>
 
-        <label><b><fmt:message key="password"/></b></label>
-        <input type="password" placeholder="<fmt:message key="password"/>" name="password" required>
-
-        <button type="submit">
-            <fmt:message key="login"/>
-        </button>
-    </div>
-    <a href="index.jsp"><fmt:message key="login.title"/></a>
-
+<form method="POST" action="/api/login">
+<p><fmt:message key="email"/> </p>
+<input type="email" placeholder="<fmt:message key="email"/>" name="email" />
+<br/>
+<p><fmt:message key="password"/> </p>
+<input type="password" placeholder="<fmt:message key="email"/>" name="password" >
+<br/>
+<button type="submit" class="btn btn-primary"><fmt:message key="login"/> </button>
 </form>
+<a href="index.jsp"><fmt:message key="login.title"/></a>
+<a href="registration.jsp"><fmt:message key="registration"/></a>
 </body>
 </html>
