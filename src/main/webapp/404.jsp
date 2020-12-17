@@ -6,11 +6,21 @@
 
 <html lang="${locale}">
 <head>
-    <title>Cabinet</title>
+    <title>404</title>
 </head>
 <body>
+<div class ="container">
+    <div>
+        <nav class="navbar navbar-expand bg-light" >
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.jsp"><fmt:message key="login"/></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 <h2><fmt:message key="error.404"/></h2>
 
-<a href="login.jsp"><fmt:message key="login"/></a>
 </body>
 </html>
