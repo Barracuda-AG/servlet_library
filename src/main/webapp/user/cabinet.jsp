@@ -21,6 +21,9 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/view_books"><fmt:message key="books.all"/></a>
+                </li>
             </ul>
         </nav>
     </div>

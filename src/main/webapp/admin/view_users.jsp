@@ -22,14 +22,40 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="admin/view_users"><fmt:message key="user.all"/></a>
-                </li>
             </ul>
         </nav>
     </div>
 </div>
-<h2><fmt:message key="login.success"/></h2>
-<h2><fmt:message key="admin"/></h2>
+<h2><fmt:message key="user.all"/></h2>
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><fmt:message key="name"/></th>
+            <th><fmt:message key="surname"/></th>
+            <th><fmt:message key="email"/></th>
+            <th><fmt:message key="role"/></th>
+            <th><fmt:message key="subscription"/></th>
+        </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="user" items="${users}" varStatus = "loopStatus">
+            <tr>
+            <td><br><c:out value="${user.firstName}"/></td>
+            <td><br><c:out value="${user.lastName}"/></td>
+            <td><br><c:out value="${user.email}"/></td>
+            <td><br><c:out value="${user.role}"/></td>
+            <td><br><c:out value="${user.order}"/></td>
+                <td> <button class="btn btn-primary" >
+                    <fmt:message key="delete"/>
+                </button></td>
+        </c:forEach>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </body>
 </html>
+

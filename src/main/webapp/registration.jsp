@@ -28,12 +28,12 @@
     <form action="/api/registration" method="POST">
         <div class="form-group">
            <p><fmt:message key="name.first"/></p>
-           <input type="text" placeholder="<fmt:message key="name.first"/>" name="firstName" />
+           <input type="text" placeholder="<fmt:message key="name"/>" name="firstName" />
 
         </div>
         <div class="form-group">
              <p><fmt:message key="name.last"/></p>
-             <input type="text" placeholder="<fmt:message key="name.last"/>"  name="lastName" />
+             <input type="text" placeholder="<fmt:message key="surname"/>"  name="lastName" />
 
         </div>
         <div class="form-group">
