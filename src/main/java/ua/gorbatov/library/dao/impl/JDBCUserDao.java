@@ -1,34 +1,33 @@
 package ua.gorbatov.library.dao.impl;
 
+import org.mindrot.jbcrypt.*;
 import ua.gorbatov.library.dao.UserDao;
 import ua.gorbatov.library.entity.Order;
 import ua.gorbatov.library.entity.Role;
 import ua.gorbatov.library.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class JDBCUserDao implements UserDao {
-    private Connection connection;
-    private JDBCOrderDao jdbcOrderDao;
+    private final Connection connection;
+    private final JDBCOrderDao jdbcOrderDao;
 
     public JDBCUserDao(Connection connection){
         this.connection = connection;
-        jdbcOrderDao = new JDBCOrderDao(connection);
+        jdbcOrderDao = new JDBCOrderDao(this.connection);
     }
     @Override
     public void create(User entity) {
-        try(PreparedStatement ps = connection.prepareStatement("INSERT INTO user (id, email, first_name, last_name, password, role) VALUES (?,?,?,?,?,?)")){
-                ps.setInt(1,entity.getId());
-                ps.setString(2, entity.getEmail());
-                ps.setString(3, entity.getFirstName());
-                ps.setString(4, entity.getLastName());
-                ps.setString(5, entity.getPassword());
-                ps.setString(6, entity.getRole().toString());
+        try(PreparedStatement ps = connection.prepareStatement("INSERT INTO user (email, first_name, last_name, password, role) VALUES (?,?,?,?,?)")){
+
+                ps.setString(1, entity.getEmail());
+                ps.setString(2, entity.getFirstName());
+                ps.setString(3, entity.getLastName());
+                ps.setString(4, BCrypt.hashpw(entity.getPassword(),BCrypt.gensalt()));
+                ps.setString(5, entity.getRole().toString());
 
                 ps.execute();
         }catch(SQLException e){
@@ -42,14 +41,8 @@ public class JDBCUserDao implements UserDao {
         try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE id = ?")){
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
-            while(resultSet.next()){
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setEmail(resultSet.getString("email"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setRole(Role.valueOf(resultSet.getString("role")));
-                user.setOrder(jdbcOrderDao.findById(resultSet.getInt("order_id")));
+            while(resultSet.next()) {
+                user = extractFromResultSet(resultSet);
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -63,24 +56,13 @@ public class JDBCUserDao implements UserDao {
         try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM user")){
             ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()){
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setEmail(resultSet.getString("email"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setRole(Role.valueOf(resultSet.getString("role")));
-                user.setOrder(jdbcOrderDao.findById(resultSet.getInt("order_id")));
+                User user = extractFromResultSet(resultSet);
                 users.add(user);
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
         return users;
-    }
-
-    @Override
-    public void update(User entity) {
-
     }
 
     @Override
@@ -101,14 +83,115 @@ public class JDBCUserDao implements UserDao {
             throw new RuntimeException(e);
         }
     }
-    public boolean setOrderToUser(User user, Order order){
+    public void setOrderToUser(User user, Order order){
         try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET order_id = ? WHERE id = ?")){
             ps.setInt(1, order.getId());
             ps.setInt(2, user.getId());
             ps.execute();
-            return true;
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<User> findOnlyLibrarians() {
+        List<User> librarians = new ArrayList<>();
+        try(Statement statement = connection.createStatement();) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_LIBRARIAN'");
+
+            while (resultSet.next()){
+                User user = extractFromResultSet(resultSet);
+                librarians.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return librarians;
+    }
+
+    @Override
+    public List<User> findOnlyUsers() {
+        List<User> users = new ArrayList<>();
+        try(Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_USER'");
+
+            while (resultSet.next()){
+                User user = extractFromResultSet(resultSet);
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+    @Override
+    public User findAdmin(){
+        User user = null;
+        try(Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_ADMIN'");
+            while (resultSet.next()){
+                user = extractFromResultSet(resultSet);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+
+    @Override
+    public void changeRoleToLibrarian(int userId) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET role = ? WHERE id = ?")){
+            ps.setString(1, Role.ROLE_LIBRARIAN.toString());
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void changeRoleToUser(int userId) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET role = ? WHERE id = ?")){
+            ps.setString(1, Role.ROLE_USER.toString());
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User getUserByEmailPassword(String email, String password) {
+        User user = null;
+        try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE email = ?")){
+            ps.setString(1, email);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                user = extractFromResultSet(resultSet);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+         if(!BCrypt.checkpw(password, (user != null) ? user.getPassword() : null)) user = null;
+        return user;
+    }
+
+    private User extractFromResultSet(ResultSet resultSet) throws SQLException{
+
+            User user = new User();
+            user.setId(resultSet.getInt("id"));
+            user.setEmail(resultSet.getString("email"));
+            user.setPassword(resultSet.getString("password"));
+            user.setFirstName(resultSet.getString("first_name"));
+            user.setLastName(resultSet.getString("last_name"));
+            user.setRole(Role.valueOf(resultSet.getString("role")));
+            user.setOrder(jdbcOrderDao.findById(resultSet.getInt("order_id")));
+
+        return user;
     }
 }

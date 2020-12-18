@@ -10,7 +10,16 @@ public class Book {
     private LocalDate publishDate;
     private Integer quantity;
 
+
     public Book(){}
+
+    public Book(String title, String author, String publisher, LocalDate publishDate, Integer quantity) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishDate = publishDate;
+        this.quantity = quantity;
+    }
 
     public int getId() {
         return id;

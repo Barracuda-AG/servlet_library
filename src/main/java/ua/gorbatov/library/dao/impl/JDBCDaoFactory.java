@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class JDBCDaoFactory extends DaoFactory {
 
-    private DataSource dataSource = JDBCConnection.getDataSource();
+    private final DataSource dataSource = JDBCConnection.getDataSource();
 
     @Override
     public UserDao createUserDao() {
@@ -28,8 +28,8 @@ public class JDBCDaoFactory extends DaoFactory {
         return new JDBCOrderDao(getConnection());
     }
 
-    private Connection getConnection(){
-        try{
+    private Connection getConnection() {
+        try {
             return dataSource.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
