@@ -45,7 +45,10 @@
             <td><br><c:out value="${user.lastName}"/></td>
             <td><br><c:out value="${user.email}"/></td>
             <td><br><c:out value="${user.role}"/></td>
-            <td><br><c:out value="${user.order}"/></td>
+            <td><br>
+<%--                <c:out value="${user.order}"/>--%>
+                <c:out value="${empty user.order ? '' : user.order.id}" />
+            </td>
                 <td> <button class="btn btn-primary" >
                     <fmt:message key="delete"/>
                 </button></td>

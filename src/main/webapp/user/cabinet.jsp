@@ -27,6 +27,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/show_order"><fmt:message key="order.show"/></a>
                 </li>
+
             </ul>
         </nav>
     </div>

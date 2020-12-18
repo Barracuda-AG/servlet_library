@@ -25,6 +25,7 @@ public class CommandFactory {
         commandMap.put("/login", new Login());
         commandMap.put("/logout", new Logout());
         commandMap.put("/404", new ErrorCommand());
+        commandMap.put("/403", new ErrorCommand());
         commandMap.put("/registration", new Registration());
         commandMap.put("/admin/cabinet", new AdminCabinetCommand());
         commandMap.put("/user/cabinet", new UserCabinetCommand());
