@@ -47,7 +47,7 @@
             <td><br><c:out value="${book.publisher}"/></td>
             <td><br><c:out value="${book.publishDate}"/></td>
             <td><br><c:out value="${book.quantity}"/></td>
-            <td> <input type="checkbox" name="booksList" value="${book.title}"></td>
+            <td> <input type="checkbox" name="bookId" value="${book.id}"></td>
             </c:forEach>
         </tr>
         </tbody>

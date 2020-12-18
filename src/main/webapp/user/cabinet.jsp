@@ -22,7 +22,10 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/view_books"><fmt:message key="books.all"/></a>
+                    <a class="nav-link" href="/api/user/view_books"><fmt:message key="books.all"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/show_order"><fmt:message key="order.show"/></a>
                 </li>
             </ul>
         </nav>

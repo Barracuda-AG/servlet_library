@@ -5,6 +5,7 @@ import ua.gorbatov.library.command.admin.AdminCabinetCommand;
 import ua.gorbatov.library.command.admin.ViewAllUsers;
 import ua.gorbatov.library.command.librarian.ViewBooksCommand;
 import ua.gorbatov.library.command.user.MakeOrder;
+import ua.gorbatov.library.command.user.ShowOrder;
 import ua.gorbatov.library.command.user.UserCabinetCommand;
 import ua.gorbatov.library.command.user.ViewBooks;
 
@@ -31,6 +32,7 @@ public class CommandFactory {
         commandMap.put("/librarian/view_books", new ViewBooksCommand());
         commandMap.put("/user/view_books", new ViewBooks());
         commandMap.put("/user/make_order", new MakeOrder());
+        commandMap.put("/user/show_order", new ShowOrder());
     }
 
     public static CommandFactory getCommandFactory() {
