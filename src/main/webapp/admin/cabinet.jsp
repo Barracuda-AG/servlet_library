@@ -23,7 +23,10 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="admin/view_users"><fmt:message key="user.all"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_users"><fmt:message key="user.all"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/addbook"><fmt:message key="book.add"/></a>
                 </li>
             </ul>
         </nav>

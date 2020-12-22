@@ -29,39 +29,40 @@
         </nav>
     </div>
 </div>
-<h2><fmt:message key="user.all"/></h2>
+<h2><fmt:message key="book.enter"/></h2>
 <div>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th><fmt:message key="name"/></th>
-            <th><fmt:message key="surname"/></th>
-            <th><fmt:message key="email"/></th>
-            <th><fmt:message key="role"/></th>
-            <th><fmt:message key="subscription"/></th>
-        </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="user" items="${users}" varStatus = "loopStatus">
-            <tr>
-            <td><br><c:out value="${user.firstName}"/></td>
-            <td><br><c:out value="${user.lastName}"/></td>
-            <td><br><c:out value="${user.email}"/></td>
-            <td><br><c:out value="${user.role}"/></td>
-            <td><br>
-<%--                <c:out value="${user.order}"/>--%>
-                <c:out value="${empty user.order ? '' : user.order.id}" />
-            </td>
-                <td> <button class="btn btn-primary" >
-                    <fmt:message key="delete"/>
-                </button></td>
-        </c:forEach>
-        </tr>
-        </tbody>
-    </table>
+    <form action="${pageContext.request.contextPath}/admin/addbook_post" method="POST">
+        <div class="form-group">
+            <p><fmt:message key="title"/></p>
+            <input type="text"  name="title" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="author"/></p>
+            <input type="text"  name="author" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="publisher"/> </p>
+            <input type="text"  name="publisher" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="publish.date"/> </p>
+            <input type="date"  name="publishDate" >
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="quantity"/> </p>
+            <input type="number"  name="quantity" >
+
+        </div>
+        <button type="submit" class="btn btn-primary"><fmt:message key="book.add"/> </button>
+    </form>
 
 </div>
 
 </body>
 </html>
+
 

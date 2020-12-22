@@ -26,7 +26,7 @@ public class Login implements Command{
         User user = userService.getUserByEmailPassword(email,password);
 
         if(Objects.isNull(user)) {
-            path = "403";
+            path = "/401.jsp";
         }
         else if(user.getRole().equals(Role.ROLE_USER)){
             request.getSession().setAttribute(Constants.USER, user);

@@ -1,6 +1,8 @@
 package ua.gorbatov.library.factory;
 
 import ua.gorbatov.library.command.*;
+import ua.gorbatov.library.command.admin.AddBook;
+import ua.gorbatov.library.command.admin.AddBookPost;
 import ua.gorbatov.library.command.admin.AdminCabinetCommand;
 import ua.gorbatov.library.command.admin.ViewAllUsers;
 import ua.gorbatov.library.command.librarian.LibrarianCabinetCommand;
@@ -14,7 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-//TODO create add book command
+//TODO create book delete command
+//TODO create user delete command
 public class CommandFactory {
     private static final CommandFactory commandFactory = new CommandFactory();
     private static final Map<String, Command> commandMap = new HashMap<>();
@@ -29,10 +32,12 @@ public class CommandFactory {
         commandMap.put("/403", new AccessDeniedCommand());
         commandMap.put("/registration", new Registration());
         commandMap.put("/admin/cabinet", new AdminCabinetCommand());
-        commandMap.put("/user/cabinet", new UserCabinetCommand());
+        commandMap.put("/admin/addbook", new AddBook());
         commandMap.put("/admin/view_users", new ViewAllUsers());
+        commandMap.put("/admin/addbook_post", new AddBookPost());
         commandMap.put("/librarian/view_books", new ViewBooksCommand());
         commandMap.put("/librarian/cabinet", new LibrarianCabinetCommand());
+        commandMap.put("/user/cabinet", new UserCabinetCommand());
         commandMap.put("/user/view_books", new ViewBooks());
         commandMap.put("/user/make_order", new MakeOrder());
         commandMap.put("/user/show_order", new ShowOrder());

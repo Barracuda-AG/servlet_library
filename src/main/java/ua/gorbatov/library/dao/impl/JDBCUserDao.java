@@ -177,7 +177,10 @@ public class JDBCUserDao implements UserDao {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
-         if(!BCrypt.checkpw(password, (user != null) ? user.getPassword() : null)) user = null;
+         if (user != null){
+             if(!BCrypt.checkpw(password,user.getPassword())) user = null;
+         }
+
         return user;
     }
 

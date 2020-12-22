@@ -1,5 +1,7 @@
 package ua.gorbatov.library.util;
 
+import java.time.LocalDate;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +20,7 @@ public class StringValidator {
 
     public static final String REG_EXP_PASSWORD = "^[a-zA-Z0-9_.$!]{2,30}";
 
+    public static final String REG_EXP_BOOK_TITLE = "^[A-Za-z0-9А-ЩЬЮЯҐІЇЄа-щьюяґіїє' ]{1,20}";
 
     public static final String REG_EXP_EMAIL = "(\\w+)@(\\w+\\.)(\\w+)";
 
@@ -40,6 +43,20 @@ public class StringValidator {
         Pattern pattern = Pattern.compile(REG_EXP_PASSWORD);
         Matcher matcher = pattern.matcher(passwordToCheck);
         return matcher.matches();
+    }
+    public boolean checkBookTitle(String bookTitle){
+        Pattern pattern = Pattern.compile(REG_EXP_BOOK_TITLE);
+        Matcher matcher = pattern.matcher(bookTitle);
+        return matcher.matches();
+    }
+    public boolean checkDate(String localDate){
+        return Objects.nonNull(localDate);
+    }
+    public boolean checkInteger(String integerString){
+        if(integerString.isEmpty()) return false;
+
+        Integer integer = Integer.valueOf(integerString);
+        return integer > 0;
     }
 
 }
