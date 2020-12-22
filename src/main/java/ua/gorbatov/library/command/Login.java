@@ -18,32 +18,31 @@ public class Login implements Command{
     @Override
     public String execute(HttpServletRequest request) {
         String path = "";
-        if(!Objects.isNull(request.getSession().getAttribute(Constants.USER))) {
-            return "user/cabinet.jsp";
-        }
+//        if(!Objects.isNull(request.getSession().getAttribute(Constants.USER))) {
+//            return "user/cabinet";
+//        }
         String email = request.getParameter(Constants.EMAIL);
         String password = request.getParameter(Constants.PASSWORD);
         User user = userService.getUserByEmailPassword(email,password);
 
         if(Objects.isNull(user)) {
-            path = "401.jsp";
+            path = "403";
         }
         else if(user.getRole().equals(Role.ROLE_USER)){
             request.getSession().setAttribute(Constants.USER, user);
-            path = "user/cabinet.jsp";
+            request.getSession().setAttribute(Constants.ROLE, user.getRole());
+            path = "user/cabinet";
         }
         else if(user.getRole().equals(Role.ROLE_LIBRARIAN)){
             request.getSession().setAttribute(Constants.LIBRARIAN, user);
-            path = "librarian/cabinet.jsp";
+            request.getSession().setAttribute(Constants.ROLE, user.getRole());
+            path = "librarian/cabinet";
         }else if(user.getRole().equals(Role.ROLE_ADMIN)){
             request.getSession().setAttribute(Constants.ADMIN, user);
-            path = "admin/cabinet.jsp";
+            request.getSession().setAttribute(Constants.ROLE, user.getRole());
+            path = "admin/cabinet";
         }
         return path;
     }
 
-    @Override
-    public boolean checkPermission(HttpServletRequest request) {
-        return true;
-    }
 }

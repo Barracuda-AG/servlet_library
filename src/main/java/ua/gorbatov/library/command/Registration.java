@@ -29,12 +29,6 @@ public class Registration implements Command {
         }
         return path;
     }
-
-    @Override
-    public boolean checkPermission(HttpServletRequest request) {
-        return true;
-    }
-
     private boolean checkParameters(String firstName, String lastName, String email, String password) {
         boolean first = stringValidator.checkNameEn(firstName);
         boolean last = stringValidator.checkNameEn(lastName);

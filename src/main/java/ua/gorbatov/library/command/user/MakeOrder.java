@@ -1,5 +1,6 @@
 package ua.gorbatov.library.command.user;
 
+import ua.gorbatov.library.command.Command;
 import ua.gorbatov.library.constant.Constants;
 import ua.gorbatov.library.entity.Book;
 import ua.gorbatov.library.entity.Order;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MakeOrder extends AbstractUserCommand {
+public class MakeOrder implements Command {
     private final BookService bookService;
     private final OrderService orderService;
     private final UserService userService;

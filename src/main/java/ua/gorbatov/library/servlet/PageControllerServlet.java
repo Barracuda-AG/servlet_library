@@ -25,16 +25,9 @@ public class PageControllerServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Command command = COMMAND_FACTORY.createCommand(req);
-        if(checkPermission(command, req)){
+
             String path = command.execute(req);
             req.getRequestDispatcher(path).forward(req, resp);
-        }
-        else {
-            req.getRequestDispatcher("403.jsp").forward(req, resp);
-        }
     }
 
-    private boolean checkPermission(Command command, HttpServletRequest request){
-        return command.checkPermission(request);
-    }
 }

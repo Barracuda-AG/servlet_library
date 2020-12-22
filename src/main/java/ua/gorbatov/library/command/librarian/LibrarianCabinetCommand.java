@@ -1,12 +1,11 @@
-package ua.gorbatov.library.command.user;
+package ua.gorbatov.library.command.librarian;
 
 import ua.gorbatov.library.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class UserCabinetCommand implements Command {
+public class LibrarianCabinetCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
-        return "/user/cabinet.jsp";
-    }
+        return "/librarian/cabinet.jsp";    }
 }

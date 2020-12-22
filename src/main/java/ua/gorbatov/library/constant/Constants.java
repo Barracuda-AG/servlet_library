@@ -6,4 +6,6 @@ public class Constants {
     public static final String ADMIN = "admin";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
+    public static final String LOCALE = "locale";
+    public static final String ROLE = "role";
 }

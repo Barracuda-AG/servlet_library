@@ -17,11 +17,11 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.jsp"><fmt:message key="login"/></a>
+                    <form  method="POST" action="/api/logout">
+                        <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
+                    </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="registration.jsp"><fmt:message key="registration"/></a>
-                </li>
+
             </ul>
         </nav>
     </div>

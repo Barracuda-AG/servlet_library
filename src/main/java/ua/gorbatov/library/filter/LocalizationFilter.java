@@ -1,17 +1,17 @@
 package ua.gorbatov.library.filter;
 
+import ua.gorbatov.library.constant.Constants;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class LocalizationFilter implements Filter {
     private String defaultLocale;
-    public static final String LOCALE = "locale";
-
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        defaultLocale = filterConfig.getInitParameter(LOCALE);
+        defaultLocale = filterConfig.getInitParameter(Constants.LOCALE);
     }
 
     @Override
@@ -19,18 +19,18 @@ public class LocalizationFilter implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        String localeParameter = httpServletRequest.getParameter(LOCALE);
+        String localeParameter = httpServletRequest.getParameter(Constants.LOCALE);
 
         if (isNotBlank(localeParameter)) {
-            httpServletRequest.getSession().setAttribute(LOCALE, localeParameter);
+            httpServletRequest.getSession().setAttribute(Constants.LOCALE, localeParameter);
 
         } else {
-            String sessionLocale = (String) httpServletRequest.getSession().getAttribute(LOCALE);
+            String sessionLocale = (String) httpServletRequest.getSession().getAttribute(Constants.LOCALE);
             if(isBlank(sessionLocale)){
-                httpServletRequest.getSession().setAttribute(LOCALE, defaultLocale);
+                httpServletRequest.getSession().setAttribute(Constants.LOCALE, defaultLocale);
             }
         }
-        httpServletRequest.getSession().getAttribute(LOCALE);
+        httpServletRequest.getSession().getAttribute(Constants.LOCALE);
         filterChain.doFilter(servletRequest,servletResponse);
 
     }
