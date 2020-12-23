@@ -42,4 +42,9 @@ public class BookServiceImpl implements BookService {
     public void updateBookQuantity(int bookId, int quantity) {
         bookDao.updateBookQuantity(bookId, quantity);
     }
+
+    @Override
+    public void updateBook(int id, String title, String author, String publisher, int quantity) {
+        bookDao.updateBook(id, title, author, publisher, quantity);
+    }
 }

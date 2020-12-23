@@ -19,12 +19,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}?locale=en">
-                        <img src="<c:url value="english.png"/>" width="30" height="20">
+                        <img src="<c:url value="/english.png"/>" width="30" height="20">
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}?locale=uk_UA">
-                        <img src="<c:url value="ukraine.png"/>" width="30">
+                        <img src="<c:url value="/ukraine.png"/>" width="30">
                     </a>
                 </li>
                 <li class="nav-item">

@@ -96,6 +96,21 @@ public class JDBCBookDao implements BookDao {
         }
 
     @Override
+    public void updateBook(int id, String title, String author, String publisher, int quantity) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE book SET quantity = ?,author = ?, title = ?, publisher = ? where id = ?")) {
+            ps.setInt(1, quantity);
+            ps.setString(2, author);
+            ps.setString(3, title);
+            ps.setString(4, publisher);
+            ps.setInt(5, id);
+            ps.execute();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public void close() throws Exception {
         try{
             connection.close();

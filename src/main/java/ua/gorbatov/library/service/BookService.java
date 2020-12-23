@@ -16,4 +16,6 @@ public interface BookService {
     void delete(int id);
 
     void updateBookQuantity(int bookId, int quantity);
+
+    void updateBook(int id, String title, String author, String publisher, int quantity);
 }

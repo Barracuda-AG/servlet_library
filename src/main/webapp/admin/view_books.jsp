@@ -6,7 +6,7 @@
 
 <html lang="${locale}">
 <head>
-    <title>Admin Cabinet</title>
+    <title>Book edit</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -29,50 +29,50 @@
         </nav>
     </div>
 </div>
-<h2><fmt:message key="user.all"/></h2>
+<h2><fmt:message key="books.all"/></h2>
 <div>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th><fmt:message key="name"/></th>
-            <th><fmt:message key="surname"/></th>
-            <th><fmt:message key="email"/></th>
-            <th><fmt:message key="role"/></th>
-            <th><fmt:message key="subscription"/></th>
+            <th><fmt:message key="title"/></th>
+            <th><fmt:message key="author"/></th>
+            <th><fmt:message key="publisher"/></th>
+            <th><fmt:message key="publish.date"/></th>
+            <th><fmt:message key="quantity"/></th>
             <th></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-            <c:forEach var="user" items="${users}" varStatus = "loopStatus">
-            <tr>
-            <td><br><c:out value="${user.firstName}"/></td>
-            <td><br><c:out value="${user.lastName}"/></td>
-            <td><br><c:out value="${user.email}"/></td>
-            <td><br><c:out value="${user.role}"/></td>
-            <td><br>
+        <c:forEach var="book" items="${books}" varStatus = "loopStatus">
+        <tr>
+            <td><br><c:out value="${book.title}"/></td>
+            <td><br><c:out value="${book.author}"/></td>
+            <td><br><c:out value="${book.publisher}"/></td>
+            <td><br><c:out value="${book.publishDate}"/></td>
+            <td><br><c:out value="${book.quantity}"/></td>
 
-                <c:out value="${empty user.order ? '' : user.order.id}" />
+            <td><form action="${pageContext.request.contextPath}/admin/delete_book" method="POST">
+            <input type="hidden" name="id" value="${book.id}">
+                <button type="submit" class="btn btn-primary">
+                    <fmt:message key="delete"/>
+                </button>
+
+            </form>
             </td>
-                <td>
-                    <form  action="" method="POST">
-                        <input type="hidden" name="id" value="${user.id}" />
-                        <button type="submit" class="btn btn-primary">
-                            <fmt:message key="edit"/>
-                        </button>
-                    </form>
-                </td>
-                <td><form action="${pageContext.request.contextPath}/admin/delete_user" method="POST">
-                    <input type="hidden" name="id" value="${user.id}">
+            <td>
+                <form  action="${pageContext.request.contextPath}/admin/edit_book" method="POST">
+                    <input type="hidden" name="id" value="${book.id}" />
                     <button type="submit" class="btn btn-primary">
-                        <fmt:message key="delete"/>
-                    </button>
-
+                    <fmt:message key="edit"/>
+                </button>
                 </form>
-                </td>
-        </c:forEach>
+            </td>
+
+            </c:forEach>
         </tr>
         </tbody>
+
     </table>
 
 </div>

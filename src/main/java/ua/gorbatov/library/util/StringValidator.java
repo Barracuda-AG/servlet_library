@@ -20,7 +20,7 @@ public class StringValidator {
 
     public static final String REG_EXP_PASSWORD = "^[a-zA-Z0-9_.$!]{2,30}";
 
-    public static final String REG_EXP_BOOK_TITLE = "^[A-Za-z0-9А-ЩЬЮЯҐІЇЄа-щьюяґіїє' ]{1,20}";
+    public static final String REG_EXP_BOOK_TITLE = "^[A-Za-z0-9А-ЩЬЮЯҐІЇЄа-щьюяґіїє' ]{1,40}";
 
     public static final String REG_EXP_EMAIL = "(\\w+)@(\\w+\\.)(\\w+)";
 
@@ -57,6 +57,14 @@ public class StringValidator {
 
         Integer integer = Integer.valueOf(integerString);
         return integer > 0;
+    }
+    public boolean checkBookParameters(String title, String author, String publisher, String publishDateString, String quantity) {
+        boolean name = checkBookTitle(title);
+        boolean auth = checkBookTitle(author);
+        boolean publish = checkBookTitle(publisher);
+        boolean date = checkDate(publishDateString);
+        boolean number = checkInteger(quantity);
+        return name && auth && publish && date && number;
     }
 
 }

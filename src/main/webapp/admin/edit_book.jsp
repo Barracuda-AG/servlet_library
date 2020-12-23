@@ -6,7 +6,7 @@
 
 <html lang="${locale}">
 <head>
-    <title>Admin Cabinet</title>
+    <title>Book edit</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -23,19 +23,42 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_users"><fmt:message key="user.all"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/addbook"><fmt:message key="book.add"/></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_books"><fmt:message key="book.edit"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
             </ul>
         </nav>
     </div>
 </div>
-<h2><fmt:message key="login.success"/></h2>
-<h2><fmt:message key="admin"/></h2>
+
+<div>
+    <form action="${pageContext.request.contextPath}/admin/update_book" method="POST">
+        <div class="form-group">
+            <p><fmt:message key="title"/></p>
+            <input type="text"  name="title" value="${book.title}" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="author"/></p>
+            <input type="text"  name="author" value="${book.author}" />
+
+        </div>
+        <div class="form-group">
+            <p><fmt:message key="publisher"/> </p>
+            <input type="text"  name="publisher" value="${book.publisher}" />
+
+        </div>
+
+        <div class="form-group">
+            <p><fmt:message key="quantity"/> </p>
+            <input type="number"  name="quantity" value="${book.quantity}" >
+
+        </div>
+        <input type="hidden" name="id" value="${book.id}">
+        <input type="hidden" name="publishDate" value="${book.publishDate}">
+        <button type="submit" class="btn btn-primary"><fmt:message key="book.edit"/> </button>
+    </form>
+
+</div>
+
 </body>
 </html>
