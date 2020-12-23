@@ -25,6 +25,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_books"><fmt:message key="books.all"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_readers"><fmt:message key="readers"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_subscriptions"><fmt:message key="subscriptions"/></a>
+                </li>
             </ul>
         </nav>
     </div>

@@ -29,32 +29,46 @@
         </nav>
     </div>
 </div>
-<h2><fmt:message key="books.all"/></h2>
+<h2><fmt:message key="readers"/></h2>
 <div>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th><fmt:message key="title"/></th>
-            <th><fmt:message key="author"/></th>
-            <th><fmt:message key="publisher"/></th>
-            <th><fmt:message key="publish.date"/></th>
-            <th><fmt:message key="quantity"/></th>
+            <th><fmt:message key="name"/></th>
+            <th><fmt:message key="surname"/></th>
+            <th><fmt:message key="email"/></th>
+            <th><fmt:message key="role"/></th>
+            <th><fmt:message key="subscription"/></th>
+            <th><fmt:message key="books"/></th>
             <th></th>
+            <th></th>
+
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="book" items="${books}" varStatus = "loopStatus">
+        <c:forEach var="user" items="${users}" varStatus = "loopStatus">
         <tr>
-            <td><br><c:out value="${book.title}"/></td>
-            <td><br><c:out value="${book.author}"/></td>
-            <td><br><c:out value="${book.publisher}"/></td>
-            <td><br><c:out value="${book.publishDate}"/></td>
-            <td><br><c:out value="${book.quantity}"/></td>
-            <td> <button class="btn btn-primary" >
-                <fmt:message key="delete"/>
-            </button></td>
+            <td><br><c:out value="${user.firstName}"/></td>
+            <td><br><c:out value="${user.lastName}"/></td>
+            <td><br><c:out value="${user.email}"/></td>
+            <td><br><c:out value="${user.role}"/></td>
+            <td><br><c:out value="${user.order.id}" /></td>
+            <td><table>
+                <c:forEach var="book" items="${user.order.books}" varStatus="loopStatus">
+                    <tr><td><c:out value="${book.title}"/></td>
+                    </tr>
+                </c:forEach>
+            </table></td>
+
+            <td><form action="${pageContext.request.contextPath}/librarian/cancel_order" method="POST">
+                <input type="hidden" name="orderId" value="${user.order.id}">
+                <button type="submit" class="btn btn-primary">
+                    <fmt:message key="cancel.subscription"/>
+                </button>
+            </form>
+            </td>
             </c:forEach>
-        </tr>
+
         </tbody>
     </table>
 

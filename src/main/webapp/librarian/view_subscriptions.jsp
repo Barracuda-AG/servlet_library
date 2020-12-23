@@ -6,7 +6,7 @@
 
 <html lang="${locale}">
 <head>
-    <title>Librarian Cabinet</title>
+    <title>User Cabinet</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -29,36 +29,39 @@
         </nav>
     </div>
 </div>
-<h2><fmt:message key="books.all"/></h2>
-<div>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th><fmt:message key="title"/></th>
-            <th><fmt:message key="author"/></th>
-            <th><fmt:message key="publisher"/></th>
-            <th><fmt:message key="publish.date"/></th>
-            <th><fmt:message key="quantity"/></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="book" items="${books}" varStatus = "loopStatus">
-        <tr>
-            <td><br><c:out value="${book.title}"/></td>
-            <td><br><c:out value="${book.author}"/></td>
-            <td><br><c:out value="${book.publisher}"/></td>
-            <td><br><c:out value="${book.publishDate}"/></td>
-            <td><br><c:out value="${book.quantity}"/></td>
-            <td> <button class="btn btn-primary" >
-                <fmt:message key="delete"/>
-            </button></td>
-            </c:forEach>
-        </tr>
-        </tbody>
-    </table>
 
-</div>
+<h3><fmt:message key="order.make"/> </h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col"><fmt:message key="subscription"/></th>
+        <th scope="col"><fmt:message key="returned"/></th>
+        <th scope="col"><fmt:message key="date.issue"/></th>
+        <th scope="col"><fmt:message key="date.return"/></th>
+        <th scope="col"><fmt:message key="penalty"/></th>
+        <th scope="col"><fmt:message key="books"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="order" items="${orders}" varStatus = "loopStatus">
+    <tr>
+        <td><c:out value="${order.id}"/></td>
+        <td><c:out value="${order.returned}"/></td>
+        <td><c:out value="${order.issueDate}"/></td>
+        <td><c:out value="${order.returnDate}"/></td>
+        <td><c:out value="${order.penalty}"/></td>
+        <td><table>
+            <c:forEach var="book" items="${order.books}" varStatus="loopStatus">
+                <tr><td><c:out value="${book.title}"/></td>
+                </tr>
+            </c:forEach>
+        </table></td>
+    </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+
 
 </body>
 </html>

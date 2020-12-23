@@ -15,8 +15,6 @@ public class Application {
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
 
 
-      String role = Role.ROLE_ADMIN.toString();
-        System.out.println(Role.valueOf(role));
 
     }
 }

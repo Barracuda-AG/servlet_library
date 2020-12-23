@@ -184,6 +184,23 @@ public class JDBCUserDao implements UserDao {
         return user;
     }
 
+    @Override
+    public List<User> findUsersWithOrders() {
+        List<User> users = new ArrayList<>();
+        try(Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE order_id IS NOT NULL");
+
+            while (resultSet.next()){
+                User user = extractFromResultSet(resultSet);
+                users.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
+    }
+
     private User extractFromResultSet(ResultSet resultSet) throws SQLException{
 
             User user = new User();

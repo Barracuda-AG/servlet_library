@@ -2,8 +2,7 @@ package ua.gorbatov.library.factory;
 
 import ua.gorbatov.library.command.*;
 import ua.gorbatov.library.command.admin.*;
-import ua.gorbatov.library.command.librarian.LibrarianCabinetCommand;
-import ua.gorbatov.library.command.librarian.ViewBooksCommand;
+import ua.gorbatov.library.command.librarian.*;
 import ua.gorbatov.library.command.user.MakeOrder;
 import ua.gorbatov.library.command.user.ShowOrder;
 import ua.gorbatov.library.command.user.UserCabinetCommand;
@@ -26,6 +25,7 @@ public class CommandFactory {
         commandMap.put("/404", new ErrorCommand());
         commandMap.put("/403", new AccessDeniedCommand());
         commandMap.put("/registration", new Registration());
+
         commandMap.put("/admin/cabinet", new AdminCabinetCommand());
         commandMap.put("/admin/addbook", new AddBook());
         commandMap.put("/admin/view_users", new ViewAllUsers());
@@ -40,6 +40,9 @@ public class CommandFactory {
 
         commandMap.put("/librarian/view_books", new ViewBooksCommand());
         commandMap.put("/librarian/cabinet", new LibrarianCabinetCommand());
+        commandMap.put("/librarian/view_readers", new ViewReaders());
+        commandMap.put("/librarian/cancel_order", new CancelOrder());
+        commandMap.put("/librarian/view_subscriptions", new ViewSubscriptions());
 
         commandMap.put("/user/cabinet", new UserCabinetCommand());
         commandMap.put("/user/view_books", new ua.gorbatov.library.command.user.ViewBooks());

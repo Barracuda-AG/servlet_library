@@ -17,4 +17,5 @@ public interface UserService {
     void changeRoleToLibrarian(int userId);
     void changeRoleToUser(int userId);
     User getUserByEmailPassword(String email, String password);
+    List<User> findUsersWithOrders();
 }
