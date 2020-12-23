@@ -23,7 +23,6 @@
                     </form>
                 </li>
                 <li class="nav-item">
-<%--                    <a class="nav-link" <c:redirect url="/user/cabinet.jsp"/> href="${url}"><fmt:message key="cabinet"/></a>--%>
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/cabinet.jsp"><fmt:message key="cabinet"/></a>
                 </li>
             </ul>
@@ -46,7 +45,7 @@
     </tr>
     </tbody>
 </table>
-
+<h3><fmt:message key="order.make"/> </h3>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -63,7 +62,7 @@
         </tr>
     </tbody>
 </table>
-
+<h3><fmt:message key="books"/> </h3>
 <table class="table table-striped">
     <thead>
     <tr>

@@ -55,7 +55,7 @@
                 <c:out value="${empty user.order ? '' : user.order.id}" />
             </td>
                 <td>
-                    <form  action="" method="POST">
+                    <form  action="${pageContext.request.contextPath}/admin/edit_user" method="POST">
                         <input type="hidden" name="id" value="${user.id}" />
                         <button type="submit" class="btn btn-primary">
                             <fmt:message key="edit"/>

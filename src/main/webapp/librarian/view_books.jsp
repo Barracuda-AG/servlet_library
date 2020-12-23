@@ -22,6 +22,9 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/cabinet"><fmt:message key="cabinet"/></a>
+                </li>
             </ul>
         </nav>
     </div>

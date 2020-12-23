@@ -34,7 +34,15 @@
 </div>
 
 <h2><fmt:message key="login.success"/></h2>
-<h2><fmt:message key="user"/></h2>
+
+        <h4><fmt:message key="user"/></h4>
+        <div><c:out value="${user.email}"/></div>
+        <hr>
+        <h4><fmt:message key="name"/></h4>
+        <div><c:out value="${user.firstName}"/></div>
+        <hr>
+        <h4><fmt:message key="surname"/></h4>
+        <div><c:out value="${user.lastName}"/></div>
 
 </body>
 </html>

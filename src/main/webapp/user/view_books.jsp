@@ -22,13 +22,16 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/cabinet.jsp"><fmt:message key="cabinet"/></a>
+                </li>
             </ul>
         </nav>
     </div>
 </div>
 <h2><fmt:message key="books.all"/></h2>
 <div>
-    <form action="/api/user/make_order" method="POST">
+    <form action="${pageContext.request.contextPath}/user/make_order" method="POST">
         <table class="table table-striped">
         <thead>
         <tr>
@@ -53,7 +56,7 @@
         </tbody>
     </table>
         <button type="submit" class="btn btn-primary" >
-            <fmt:message key="order.make"/>
+            <fmt:message key="to.order"/>
         </button>
     </form>
 </div>

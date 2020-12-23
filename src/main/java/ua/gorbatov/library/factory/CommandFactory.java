@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-//TODO create user delete command
 public class CommandFactory {
     private static final CommandFactory commandFactory = new CommandFactory();
     private static final Map<String, Command> commandMap = new HashMap<>();
@@ -36,8 +35,12 @@ public class CommandFactory {
         commandMap.put("/admin/edit_book", new EditBook());
         commandMap.put(("/admin/update_book"), new UpdateBook());
         commandMap.put("/admin/delete_user", new UserDelete());
+        commandMap.put("/admin/edit_user", new EditUser());
+        commandMap.put("/admin/change_role", new ChangeRole());
+
         commandMap.put("/librarian/view_books", new ViewBooksCommand());
         commandMap.put("/librarian/cabinet", new LibrarianCabinetCommand());
+
         commandMap.put("/user/cabinet", new UserCabinetCommand());
         commandMap.put("/user/view_books", new ua.gorbatov.library.command.user.ViewBooks());
         commandMap.put("/user/make_order", new MakeOrder());

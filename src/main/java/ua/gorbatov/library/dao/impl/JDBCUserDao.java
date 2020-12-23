@@ -53,7 +53,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM user")){
+        try(PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE role != 'ROLE_ADMIN'")){
             ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()){
                 User user = extractFromResultSet(resultSet);

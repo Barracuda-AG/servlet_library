@@ -23,7 +23,7 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="librarian/view_books"><fmt:message key="books.all"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_books"><fmt:message key="books.all"/></a>
                 </li>
             </ul>
         </nav>
@@ -31,6 +31,15 @@
 </div>
 
 <h2><fmt:message key="login.success"/></h2>
-<h2><fmt:message key="librarian"/></h2>
+
+<h4><fmt:message key="librarian"/></h4>
+<div><c:out value="${librarian.email}"/></div>
+<hr>
+<h4><fmt:message key="name"/></h4>
+<div><c:out value="${librarian.firstName}"/></div>
+<hr>
+<h4><fmt:message key="surname"/></h4>
+<div><c:out value="${librarian.lastName}"/></div>
+
 </body>
 </html>
