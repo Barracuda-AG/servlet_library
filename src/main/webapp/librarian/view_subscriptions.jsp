@@ -46,10 +46,17 @@
     <c:forEach var="order" items="${orders}" varStatus = "loopStatus">
     <tr>
         <td><c:out value="${order.id}"/></td>
-        <td><c:out value="${order.returned}"/></td>
+        <td> <c:if test="${order.returned eq 'true'}">
+            <fmt:message key="yes"/>
+        </c:if>
+            <c:if test="${order.returned eq 'false'}">
+                <fmt:message key="no"/>
+            </c:if>
+        </td>
+
         <td><c:out value="${order.issueDate}"/></td>
         <td><c:out value="${order.returnDate}"/></td>
-        <td><c:out value="${order.penalty}"/></td>
+        <td style="color:${order.penalty gt 0 ? 'red' : ''}"><c:out value="${order.penalty}"/></td>
         <td><table>
             <c:forEach var="book" items="${order.books}" varStatus="loopStatus">
                 <tr><td><c:out value="${book.title}"/></td>

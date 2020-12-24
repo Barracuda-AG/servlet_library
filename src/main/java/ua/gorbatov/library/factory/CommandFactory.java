@@ -3,6 +3,7 @@ package ua.gorbatov.library.factory;
 import ua.gorbatov.library.command.*;
 import ua.gorbatov.library.command.admin.*;
 import ua.gorbatov.library.command.librarian.*;
+import ua.gorbatov.library.command.user.CancelSubscription;
 import ua.gorbatov.library.command.user.MakeOrder;
 import ua.gorbatov.library.command.user.ShowOrder;
 import ua.gorbatov.library.command.user.UserCabinetCommand;
@@ -48,6 +49,7 @@ public class CommandFactory {
         commandMap.put("/user/view_books", new ua.gorbatov.library.command.user.ViewBooks());
         commandMap.put("/user/make_order", new MakeOrder());
         commandMap.put("/user/show_order", new ShowOrder());
+        commandMap.put("/user/cancel_order", new CancelSubscription());
     }
 
     public static CommandFactory getCommandFactory() {

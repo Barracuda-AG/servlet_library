@@ -39,7 +39,7 @@
             <th><fmt:message key="publisher"/></th>
             <th><fmt:message key="publish.date"/></th>
             <th><fmt:message key="quantity"/></th>
-            <th></th>
+
         </tr>
         </thead>
         <tbody>
@@ -50,9 +50,7 @@
             <td><br><c:out value="${book.publisher}"/></td>
             <td><br><c:out value="${book.publishDate}"/></td>
             <td><br><c:out value="${book.quantity}"/></td>
-            <td> <button class="btn btn-primary" >
-                <fmt:message key="delete"/>
-            </button></td>
+
             </c:forEach>
         </tr>
         </tbody>

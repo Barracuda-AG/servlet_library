@@ -47,9 +47,11 @@ public class JDBCOrderDao implements OrderDao {
             while (resultSet.next()) {
                 order = extractFromResultSet(resultSet);
             }
+            if(order != null)checkPenalty(order);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return order;
     }
 
@@ -60,6 +62,7 @@ public class JDBCOrderDao implements OrderDao {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 Order order = extractFromResultSet(resultSet);
+                if(order != null) checkPenalty(order);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -156,8 +159,17 @@ public class JDBCOrderDao implements OrderDao {
         order.setIssueDate(LocalDate.parse(resultSet.getString("issue_date")));
         order.setReturnDate(LocalDate.parse(resultSet.getString("return_date")));
         order.setPenalty(resultSet.getInt("penalty"));
-        order.setReturned(Boolean.parseBoolean(resultSet.getString("is_returned")));
+        order.setReturned(resultSet.getBoolean("is_returned"));
         order.setBooks(getBooksFromOrder(order.getId()));
+
         return order;
+    }
+    private void checkPenalty(Order order) throws SQLException{
+        if(order.getReturnDate().isBefore(LocalDate.now()) && !order.isReturned() && order.getPenalty() == 0){
+            PreparedStatement ps = connection.prepareStatement("UPDATE orders SET penalty = 50 WHERE id = ?");
+            ps.setInt(1, order.getId());
+            ps.execute();
+            order.setPenalty(50);
+        }
     }
 }

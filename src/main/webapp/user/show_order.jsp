@@ -58,7 +58,7 @@
         <tr>
             <td><c:out value="${order.id}"/></td>
             <td><c:out value="${order.returnDate}"/></td>
-            <td><c:out value="${order.penalty}"/></td>
+            <td style="color:${order.penalty gt 0 ? 'red' : ''}"><c:out value="${order.penalty}"/></td>
         </tr>
     </tbody>
 </table>
@@ -84,6 +84,16 @@
     </c:forEach>
     </tbody>
 </table>
+<form action="${pageContext.request.contextPath}/user/cancel_order" method="POST">
+    <input type="hidden" name="id" value="${order.id}">
+    <c:if test="${order ne null}">
+        <button type="submit" class="btn btn-primary">
+            <fmt:message key="books.return"/>
+        </button>
+    </c:if>
+
+</form>
+
 
 
 </body>
