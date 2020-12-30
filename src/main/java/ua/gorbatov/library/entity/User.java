@@ -10,17 +10,19 @@ public class User {
     private Order order;
     private String firstName;
     private String lastName;
+    private boolean isAccountNonLocked;
 
     public User(){
 
     }
 
-    public User(String email, String password, String firstName, String lastName, Role role) {
+    public User(String email, String password, String firstName, String lastName, Role role, boolean isAccountNonLocked) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.isAccountNonLocked = isAccountNonLocked;
     }
 
     public int getId() {
@@ -79,6 +81,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,10 +107,12 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", order=" + order +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", isAccountNonLocked=" + isAccountNonLocked +
                 '}';
     }
 }

@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
@@ -30,8 +30,7 @@
     </div>
 </div>
 
-<div>
-    <form action="${pageContext.request.contextPath}/admin/change_role" method="POST">
+<div class="container">
 
         <h4><fmt:message key="user"/></h4>
         <div><c:out value="${user.email}"/></div>
@@ -47,7 +46,7 @@
         <hr>
         <input type="hidden" name="id" value="${user.id}">
         <input type="hidden" name="role" value="${user.role}">
-
+    <form action="${pageContext.request.contextPath}/admin/change_role" method="POST">
         <button type="submit" class="btn btn-primary">
             <c:if test="${user.role eq 'ROLE_USER'}">
                 <fmt:message key="to.librarian"/>
@@ -57,6 +56,21 @@
             </c:if>
 
         </button>
+    </form>
+
+    <form action="${pageContext.request.contextPath}/admin/block_user" method="POST">
+        <input type="hidden" name="id" value="${user.id}">
+
+            <c:if test="${user.accountNonLocked eq false}">
+        <button type="submit" class="btn btn-success">
+                <fmt:message key="unlock"/>
+        </button>
+            </c:if>
+            <c:if test="${user.accountNonLocked eq true}">
+        <button type="submit" class="btn btn-danger">
+        <fmt:message key="lock"/>
+        </button>
+            </c:if>
     </form>
 
 </div>

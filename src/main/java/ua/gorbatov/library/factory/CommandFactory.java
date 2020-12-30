@@ -2,11 +2,9 @@ package ua.gorbatov.library.factory;
 
 import ua.gorbatov.library.command.*;
 import ua.gorbatov.library.command.admin.*;
+import ua.gorbatov.library.command.admin.ViewBooks;
 import ua.gorbatov.library.command.librarian.*;
-import ua.gorbatov.library.command.user.CancelSubscription;
-import ua.gorbatov.library.command.user.MakeOrder;
-import ua.gorbatov.library.command.user.ShowOrder;
-import ua.gorbatov.library.command.user.UserCabinetCommand;
+import ua.gorbatov.library.command.user.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -38,6 +36,7 @@ public class CommandFactory {
         commandMap.put("/admin/delete_user", new UserDelete());
         commandMap.put("/admin/edit_user", new EditUser());
         commandMap.put("/admin/change_role", new ChangeRole());
+        commandMap.put("/admin/block_user", new BlockUser());
 
         commandMap.put("/librarian/view_books", new ViewBooksCommand());
         commandMap.put("/librarian/cabinet", new LibrarianCabinetCommand());
@@ -50,6 +49,7 @@ public class CommandFactory {
         commandMap.put("/user/make_order", new MakeOrder());
         commandMap.put("/user/show_order", new ShowOrder());
         commandMap.put("/user/cancel_order", new CancelSubscription());
+        commandMap.put("/user/find", new FindBooks());
     }
 
     public static CommandFactory getCommandFactory() {

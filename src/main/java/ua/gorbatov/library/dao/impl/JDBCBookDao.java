@@ -2,6 +2,8 @@ package ua.gorbatov.library.dao.impl;
 
 import ua.gorbatov.library.dao.BookDao;
 import ua.gorbatov.library.entity.Book;
+import ua.gorbatov.library.entity.Order;
+import ua.gorbatov.library.entity.User;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -108,6 +110,32 @@ public class JDBCBookDao implements BookDao {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public List<Book> findByTitleOrAuthor(String text) {
+        List<Book> books = new ArrayList<>();
+        try(PreparedStatement ps = connection.prepareStatement("select * from book where author like ? or title like ?")){
+            ps.setString(1, "%" + text + "%");
+            ps.setString(2, "%" + text + "%");
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setId(resultSet.getInt("id"));
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setPublishDate(LocalDate.parse(resultSet.getString("publish_date")));
+                book.setPublisher(resultSet.getString("publisher"));
+                book.setQuantity(resultSet.getInt("quantity"));
+                books.add(book);
+            }
+          return books;
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

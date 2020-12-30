@@ -21,4 +21,8 @@ public interface UserDao extends GenericDao<User> {
     User getUserByEmailPassword(String email, String password);
 
     List<User> findUsersWithOrders();
+
+    void lockUser(int id);
+
+    void unlockUser(int id);
 }

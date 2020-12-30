@@ -18,17 +18,31 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/cabinet.jsp"><fmt:message key="cabinet"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/show_order"><fmt:message key="order.show"/></a>
+                </li>
             </ul>
         </nav>
     </div>
 </div>
+<br/>
+<div class="container">
+
+    <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/user/find" method="POST">
+        <input class="form-control mr-sm-2" type="search" name="text" placeholder="<fmt:message key="title.author"/>" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><fmt:message key="search"/></button>
+    </form>
+</div>
+<br/>
+
+<div class="container">
 <h2><fmt:message key="books.all"/></h2>
 <div>
     <form action="${pageContext.request.contextPath}/user/make_order" method="POST">
@@ -60,7 +74,7 @@
         </button>
     </form>
 </div>
-
+</div>
 </body>
 </html>
 

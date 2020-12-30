@@ -18,18 +18,24 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/librarian/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_books"><fmt:message key="books.all"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_readers"><fmt:message key="readers"/></a>
+                </li>
             </ul>
         </nav>
     </div>
 </div>
-
+<div class="container">
 <h3><fmt:message key="order.make"/> </h3>
 <table class="table table-striped">
     <thead>
@@ -56,9 +62,9 @@
 
         <td><c:out value="${order.issueDate}"/></td>
         <td><c:out value="${order.returnDate}"/></td>
-        <td style="color:${order.penalty gt 0 ? 'red' : ''}"><c:out value="${order.penalty}"/></td>
+        <td style="color:${order.penalty gt 0 ? 'red' : 'green'}"><c:out value="${order.penalty}"/></td>
         <td><table>
-            <c:forEach var="book" items="${order.books}" varStatus="loopStatus">
+            <c:forEach var="book" items="${order.books}">
                 <tr><td><c:out value="${book.title}"/></td>
                 </tr>
             </c:forEach>
@@ -69,7 +75,7 @@
 </table>
 
 
-
+</div>
 </body>
 </html>
 

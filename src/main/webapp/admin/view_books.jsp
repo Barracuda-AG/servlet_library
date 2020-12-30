@@ -18,17 +18,24 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_users"><fmt:message key="user.all"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/addbook"><fmt:message key="book.add"/></a>
+                </li>
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="books.all"/></h2>
 <div>
     <table class="table table-striped">
@@ -52,21 +59,21 @@
             <td><br><c:out value="${book.publishDate}"/></td>
             <td><br><c:out value="${book.quantity}"/></td>
 
-            <td><form action="${pageContext.request.contextPath}/admin/delete_book" method="POST">
-            <input type="hidden" name="id" value="${book.id}">
-                <button type="submit" class="btn btn-primary">
-                    <fmt:message key="delete"/>
-                </button>
-
-            </form>
-            </td>
             <td>
                 <form  action="${pageContext.request.contextPath}/admin/edit_book" method="POST">
                     <input type="hidden" name="id" value="${book.id}" />
                     <button type="submit" class="btn btn-primary">
-                    <fmt:message key="edit"/>
-                </button>
+                        <fmt:message key="edit"/>
+                    </button>
                 </form>
+            </td>
+            <td><form action="${pageContext.request.contextPath}/admin/delete_book" method="POST">
+            <input type="hidden" name="id" value="${book.id}">
+                <button type="submit" class="btn btn-danger">
+                    <fmt:message key="delete"/>
+                </button>
+
+            </form>
             </td>
 
             </c:forEach>
@@ -76,7 +83,7 @@
     </table>
 
 </div>
-
+</div>
 </body>
 </html>
 

@@ -29,17 +29,20 @@ public class MakeOrder implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Constants.USER);
+        user = userService.findById(user.getId());
         int id = user.getId();
         List<Book> booksToOrder = getBooksFromRequest(request);
+        String path = "/user/cabinet.jsp";
 
         if(booksToOrder.size() > 0 && user.getOrder() == null) {
             orderService.create(booksToOrder);
             Order order = orderService.findById(orderService.getLastId());
             userService.setOrderToUser(user, order);
             request.getSession().setAttribute(Constants.USER,userService.findById(id));
+            path = "/user/show_order";
         }
 
-        return "/user/cabinet.jsp";
+        return path;
     }
 
     private List<Book> getBooksFromRequest(HttpServletRequest request) {

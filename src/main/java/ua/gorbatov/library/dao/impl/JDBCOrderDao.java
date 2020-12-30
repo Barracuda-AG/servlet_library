@@ -71,7 +71,7 @@ public class JDBCOrderDao implements OrderDao {
         return orders;
     }
 
-    //TODO Transaction
+
     @Override
     public void delete(int id) {
         try (PreparedStatement ps = connection.prepareStatement("UPDATE user SET order_id = null WHERE order_id = ?");
@@ -101,7 +101,7 @@ public class JDBCOrderDao implements OrderDao {
             throw new RuntimeException(e);
         }
     }
-
+//TODO Transaction
     private void insertBooks(List<Book> books, int orderId) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("INSERT INTO orders_books (order_id, books_id) VALUES (?,?)");
         PreparedStatement ps1 = connection.prepareStatement("UPDATE book SET quantity = quantity - 1 WHERE id = ?");

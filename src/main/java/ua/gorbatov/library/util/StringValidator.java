@@ -14,9 +14,7 @@ public class StringValidator {
     public static StringValidator getInstance(){
         return stringValidator;
     }
-    public static final String REG_EXP_NAME = "^[A-Za-z0-9]{1,20}";
-
-    public static final String REG_EXP_NAME_UA = "^[А-ЩЬЮЯҐІЇЄ][а-щьюяґіїє']{1,20}$";
+    public static final String REG_EXP_NAME = "^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє' ]{1,20}";
 
     public static final String REG_EXP_PASSWORD = "^[a-zA-Z0-9_.$!]{2,30}";
 
@@ -29,16 +27,12 @@ public class StringValidator {
         Matcher matcher = pattern.matcher(emailToCheck);
         return matcher.matches();
     }
-    public boolean checkNameEn(String nameToCheck){
+    public boolean checkName(String nameToCheck){
         Pattern pattern = Pattern.compile(REG_EXP_NAME);
         Matcher matcher = pattern.matcher(nameToCheck);
         return matcher.matches();
     }
-    public boolean checkNameUa(String nameToCheck){
-        Pattern pattern = Pattern.compile(REG_EXP_NAME_UA);
-        Matcher matcher = pattern.matcher(nameToCheck);
-        return matcher.matches();
-    }
+
     public boolean checkPassword(String passwordToCheck){
         Pattern pattern = Pattern.compile(REG_EXP_PASSWORD);
         Matcher matcher = pattern.matcher(passwordToCheck);
@@ -55,7 +49,7 @@ public class StringValidator {
     public boolean checkInteger(String integerString){
         if(integerString.isEmpty()) return false;
 
-        Integer integer = Integer.valueOf(integerString);
+        int integer = Integer.parseInt(integerString);
         return integer > 0;
     }
     public boolean checkBookParameters(String title, String author, String publisher, String publishDateString, String quantity) {

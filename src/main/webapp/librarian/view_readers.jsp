@@ -18,17 +18,24 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/librarian/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_books"><fmt:message key="books.all"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_subscriptions"><fmt:message key="subscriptions"/></a>
+                </li>
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="readers"/></h2>
 <div>
     <table class="table table-striped">
@@ -37,7 +44,6 @@
             <th><fmt:message key="name"/></th>
             <th><fmt:message key="surname"/></th>
             <th><fmt:message key="email"/></th>
-            <th><fmt:message key="role"/></th>
             <th><fmt:message key="subscription"/></th>
             <th><fmt:message key="books"/></th>
             <th></th>
@@ -51,7 +57,6 @@
             <td><br><c:out value="${user.firstName}"/></td>
             <td><br><c:out value="${user.lastName}"/></td>
             <td><br><c:out value="${user.email}"/></td>
-            <td><br><c:out value="${user.role}"/></td>
             <td><br><c:out value="${user.order.id}" /></td>
             <td><table>
                 <c:forEach var="book" items="${user.order.books}" varStatus="loopStatus">
@@ -62,7 +67,7 @@
 
             <td><form action="${pageContext.request.contextPath}/librarian/cancel_order" method="POST">
                 <input type="hidden" name="orderId" value="${user.order.id}">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-danger">
                     <fmt:message key="cancel.subscription"/>
                 </button>
             </form>
@@ -73,7 +78,7 @@
     </table>
 
 </div>
-
+</div>
 </body>
 </html>
 

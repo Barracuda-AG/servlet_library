@@ -23,7 +23,8 @@
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="logout.successful"/></h2>
-
+</div>
 </body>
 </html>

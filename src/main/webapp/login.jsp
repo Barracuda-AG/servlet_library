@@ -26,9 +26,10 @@
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="greetings"/></h2>
 
-<form method="POST" action="/api/login">
+<form method="POST" action="/login">
     <div class="form-group">
         <p><fmt:message key="email"/> </p>
         <input type="email" placeholder="<fmt:message key="email"/>" name="email" />
@@ -41,6 +42,6 @@
     </div>
 <button type="submit" class="btn btn-primary"><fmt:message key="login"/> </button>
 </form>
-
+</div>
 </body>
 </html>

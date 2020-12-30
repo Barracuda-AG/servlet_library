@@ -34,6 +34,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findByAuthorOrTitle(String text) {
+        return bookDao.findByTitleOrAuthor(text);
+    }
+
+    @Override
     public void delete(int id) {
         bookDao.delete(id);
     }

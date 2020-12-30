@@ -18,17 +18,24 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/addbook"><fmt:message key="book.add"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_books"><fmt:message key="books.all"/></a>
+                </li>
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="user.all"/></h2>
 <div>
     <table class="table table-striped">
@@ -38,6 +45,7 @@
             <th><fmt:message key="surname"/></th>
             <th><fmt:message key="email"/></th>
             <th><fmt:message key="role"/></th>
+            <th><fmt:message key="status"/></th>
             <th><fmt:message key="subscription"/></th>
             <th></th>
             <th></th>
@@ -50,7 +58,15 @@
             <td><br><c:out value="${user.lastName}"/></td>
             <td><br><c:out value="${user.email}"/></td>
             <td><br><c:out value="${user.role}"/></td>
-            <td><br>
+                <td style="color:${user.accountNonLocked eq 'true' ? 'green' : 'red'}">
+                    <c:if test="${user.accountNonLocked eq 'true'}">
+                    <fmt:message key="unlocked"/>
+                </c:if>
+                    <c:if test="${user.accountNonLocked eq 'false'}">
+                        <fmt:message key="locked"/>
+                    </c:if>
+                </td>
+                <td><br>
 
                 <c:out value="${empty user.order ? '' : user.order.id}" />
             </td>
@@ -64,7 +80,7 @@
                 </td>
                 <td><form action="${pageContext.request.contextPath}/admin/delete_user" method="POST">
                     <input type="hidden" name="id" value="${user.id}">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-danger">
                         <fmt:message key="delete"/>
                     </button>
 
@@ -76,7 +92,7 @@
     </table>
 
 </div>
-
+</div>
 </body>
 </html>
 

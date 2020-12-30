@@ -21,13 +21,14 @@ public class JDBCUserDao implements UserDao {
     }
     @Override
     public void create(User entity) {
-        try(PreparedStatement ps = connection.prepareStatement("INSERT INTO user (email, first_name, last_name, password, role) VALUES (?,?,?,?,?)")){
+        try(PreparedStatement ps = connection.prepareStatement("INSERT INTO user (email, first_name, last_name, password, role, account_non_locked) VALUES (?,?,?,?,?,?)")){
 
                 ps.setString(1, entity.getEmail());
                 ps.setString(2, entity.getFirstName());
                 ps.setString(3, entity.getLastName());
                 ps.setString(4, BCrypt.hashpw(entity.getPassword(),BCrypt.gensalt()));
                 ps.setString(5, entity.getRole().toString());
+                ps.setBoolean(6, entity.isAccountNonLocked());
 
                 ps.execute();
         }catch(SQLException e){
@@ -96,7 +97,7 @@ public class JDBCUserDao implements UserDao {
     @Override
     public List<User> findOnlyLibrarians() {
         List<User> librarians = new ArrayList<>();
-        try(Statement statement = connection.createStatement();) {
+        try(Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE role = 'ROLE_LIBRARIAN'");
 
             while (resultSet.next()){
@@ -201,6 +202,28 @@ public class JDBCUserDao implements UserDao {
         return users;
     }
 
+    @Override
+    public void lockUser(int id) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET account_non_locked = false WHERE id = ?")){
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void unlockUser(int id) {
+        try(PreparedStatement ps = connection.prepareStatement("UPDATE user SET account_non_locked = true WHERE id = ?")){
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
     private User extractFromResultSet(ResultSet resultSet) throws SQLException{
 
             User user = new User();
@@ -210,6 +233,7 @@ public class JDBCUserDao implements UserDao {
             user.setFirstName(resultSet.getString("first_name"));
             user.setLastName(resultSet.getString("last_name"));
             user.setRole(Role.valueOf(resultSet.getString("role")));
+            user.setAccountNonLocked(resultSet.getBoolean("account_non_locked"));
             user.setOrder(jdbcOrderDao.findById(resultSet.getInt("order_id")));
 
         return user;

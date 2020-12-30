@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div>
+<div class="container">
     <form action="${pageContext.request.contextPath}/admin/update_book" method="POST">
         <div class="form-group">
             <p><fmt:message key="title"/></p>
@@ -59,6 +59,5 @@
     </form>
 
 </div>
-
 </body>
 </html>

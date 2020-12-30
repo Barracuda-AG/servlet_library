@@ -28,19 +28,22 @@ public class Login implements Command{
         if(Objects.isNull(user)) {
             path = "/401.jsp";
         }
-        else if(user.getRole().equals(Role.ROLE_USER)){
+        else if(user.getRole().equals(Role.ROLE_USER) && user.isAccountNonLocked()){
             request.getSession().setAttribute(Constants.USER, user);
             request.getSession().setAttribute(Constants.ROLE, user.getRole());
             path = "user/cabinet";
         }
-        else if(user.getRole().equals(Role.ROLE_LIBRARIAN)){
-            request.getSession().setAttribute(Constants.LIBRARIAN, user);
+        else if(user.getRole().equals(Role.ROLE_LIBRARIAN) && user.isAccountNonLocked()){
+            request.getSession().setAttribute(Constants.USER, user);
             request.getSession().setAttribute(Constants.ROLE, user.getRole());
             path = "librarian/cabinet";
         }else if(user.getRole().equals(Role.ROLE_ADMIN)){
-            request.getSession().setAttribute(Constants.ADMIN, user);
+            request.getSession().setAttribute(Constants.USER, user);
             request.getSession().setAttribute(Constants.ROLE, user.getRole());
             path = "admin/cabinet";
+        }
+        else if(!user.isAccountNonLocked()){
+            path = "/blocked.jsp";
         }
         return path;
     }

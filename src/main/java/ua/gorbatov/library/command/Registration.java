@@ -30,8 +30,8 @@ public class Registration implements Command {
         return path;
     }
     private boolean checkParameters(String firstName, String lastName, String email, String password) {
-        boolean first = stringValidator.checkNameEn(firstName);
-        boolean last = stringValidator.checkNameEn(lastName);
+        boolean first = stringValidator.checkName(firstName);
+        boolean last = stringValidator.checkName(lastName);
         boolean mail = stringValidator.checkEmail(email);
         boolean pass = stringValidator.checkPassword(password);
         return first && last && mail && pass;
