@@ -12,6 +12,7 @@ import java.util.List;
 public class JDBCOrderDao implements OrderDao {
     private final Connection connection;
     private final JDBCBookDao jdbcBookDao;
+    private int noOfRecords;
 
     public JDBCOrderDao(Connection connection) {
         this.connection = connection;
@@ -171,5 +172,40 @@ public class JDBCOrderDao implements OrderDao {
             ps.execute();
             order.setPenalty(50);
         }
+    }
+    public List<Order> findAll(int offset, int noOfRecords){
+        List<Order> orders = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("SELECT SQL_CALC_FOUND_ROWS * FROM orders LIMIT ?, ?")) {
+            ps.setInt(1, offset);
+            ps.setInt(2, noOfRecords);
+
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Order order = new Order();
+                order.setId(resultSet.getInt("id"));
+                order.setIssueDate(LocalDate.parse(resultSet.getString("issue_date")));
+                order.setReturnDate(LocalDate.parse(resultSet.getString("return_date")));
+                order.setPenalty(resultSet.getInt("penalty"));
+                order.setReturned(resultSet.getBoolean("is_returned"));
+
+                orders.add(order);
+            }
+
+            resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
+            if(resultSet.next()){
+                this.noOfRecords = resultSet.getInt(1);
+            }
+            for(Order order: orders){
+                order.setBooks(getBooksFromOrder(order.getId()));
+                checkPenalty(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    public int getNoOfRecords(){
+        return noOfRecords;
     }
 }

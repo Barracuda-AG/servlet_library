@@ -25,4 +25,6 @@ public interface UserDao extends GenericDao<User> {
     void lockUser(int id);
 
     void unlockUser(int id);
+
+    int getNoOfRecords();
 }

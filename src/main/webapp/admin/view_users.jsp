@@ -52,7 +52,7 @@
         </tr>
         </thead>
         <tbody>
-            <c:forEach var="user" items="${users}" varStatus = "loopStatus">
+            <c:forEach var="user" items="${users}">
             <tr>
             <td><br><c:out value="${user.firstName}"/></td>
             <td><br><c:out value="${user.lastName}"/></td>
@@ -68,7 +68,7 @@
                 </td>
                 <td><br>
 
-                <c:out value="${empty user.order ? '' : user.order.id}" />
+                <c:out value="${user.order.getId() == 0 ? '' : user.order.id}" />
             </td>
                 <td>
                     <form  action="${pageContext.request.contextPath}/admin/edit_user" method="POST">
@@ -90,7 +90,22 @@
         </tr>
         </tbody>
     </table>
-
+    <c:if test="${currentPage != 1}">
+        <td><a href="/admin/view_users?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
+    </c:if>
+    <c:forEach begin="1" end="${noOfPages}" var="i">
+        <c:choose>
+            <c:when test="${currentPage eq i}">
+                <td>${i}</td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="/admin/view_users?page=${i}">${i}</a></td>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${currentPage lt noOfPages}">
+        <td><a href="/admin/view_users?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
+    </c:if>
 </div>
 </div>
 </body>

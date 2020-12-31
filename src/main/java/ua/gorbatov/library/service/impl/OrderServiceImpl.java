@@ -49,4 +49,15 @@ public class OrderServiceImpl implements OrderService {
     public int getLastId() {
         return orderDao.getLastId();
     }
+
+    @Override
+    public List<Order> findAll(int offset, int noOfRecords) {
+        return orderDao.findAll(offset, noOfRecords);
+    }
+
+    @Override
+    public int getNoOfRecords() {
+        return orderDao.getNoOfRecords();
+    }
+
 }

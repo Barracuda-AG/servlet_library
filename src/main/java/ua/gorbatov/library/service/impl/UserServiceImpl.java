@@ -91,4 +91,14 @@ public class UserServiceImpl implements UserService {
     public void unlockUser(int id) {
         userDao.unlockUser(id);
     }
+
+    @Override
+    public List<User> findAll(int offset, int noOfRecords) {
+        return userDao.findAll(offset, noOfRecords);
+    }
+
+    @Override
+    public int getNoOfRecords() {
+        return userDao.getNoOfRecords();
+    }
 }

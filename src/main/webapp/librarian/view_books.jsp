@@ -50,7 +50,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="book" items="${books}" varStatus = "loopStatus">
+        <c:forEach var="book" items="${books}">
         <tr>
             <td><br><c:out value="${book.title}"/></td>
             <td><br><c:out value="${book.author}"/></td>
@@ -62,6 +62,22 @@
         </tr>
         </tbody>
     </table>
+    <c:if test="${currentPage != 1}">
+        <td><a href="/librarian/view_books?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
+    </c:if>
+    <c:forEach begin="1" end="${noOfPages}" var="i">
+        <c:choose>
+            <c:when test="${currentPage eq i}">
+                <td>${i}</td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="/librarian/view_books?page=${i}">${i}</a></td>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${currentPage lt noOfPages}">
+        <td><a href="/librarian/view_books?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
+    </c:if>
 
 </div>
 </div>

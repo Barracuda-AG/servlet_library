@@ -1,6 +1,8 @@
 package ua.gorbatov.library.command.admin;
 
 import ua.gorbatov.library.command.Command;
+import ua.gorbatov.library.constant.Constants;
+import ua.gorbatov.library.entity.Book;
 import ua.gorbatov.library.entity.User;
 import ua.gorbatov.library.factory.ServiceFactory;
 import ua.gorbatov.library.service.UserService;
@@ -16,8 +18,21 @@ public class ViewAllUsers implements Command {
     }
     @Override
     public String execute(HttpServletRequest request) {
-        List<User> users = userService.findAllUsers();
+        int page = Constants.ONE;
+        int recordsPerPage = Constants.SIX;
+
+        if(request.getParameter(Constants.PAGE) != null) {
+            page = Integer.parseInt(request.getParameter(Constants.PAGE));
+        }
+        List<User> users = userService.findAll((page - Constants.ONE)*recordsPerPage, recordsPerPage);
+        int noOfRecords = userService.getNoOfRecords();
+        int noOfPages = (int)Math.ceil(noOfRecords * Constants.ONE_DOUBLE/ recordsPerPage);
+
         request.setAttribute("users", users);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+//        List<User> users = userService.findAllUsers();
+//        request.setAttribute("users", users);
         return "/admin/view_users.jsp";
     }
 }

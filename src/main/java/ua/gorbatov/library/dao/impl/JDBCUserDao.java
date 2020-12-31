@@ -14,6 +14,7 @@ import java.util.Objects;
 public class JDBCUserDao implements UserDao {
     private final Connection connection;
     private final JDBCOrderDao jdbcOrderDao;
+    private int noOfRecords;
 
     public JDBCUserDao(Connection connection){
         this.connection = connection;
@@ -74,6 +75,39 @@ public class JDBCUserDao implements UserDao {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<User> findAll(int offset, int noOfRecords) {
+        List<User> users = new ArrayList<>();
+        try(PreparedStatement ps = connection.prepareStatement(
+                "select SQL_CALC_FOUND_ROWS * from user left join orders on user.order_id = orders.id WHERE role != 'ROLE_ADMIN' limit ?,?")){
+            ps.setInt(1, offset);
+            ps.setInt(2, noOfRecords);
+
+            ResultSet resultSet = ps.executeQuery();
+            while(resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setRole(Role.valueOf(resultSet.getString("role")));
+                user.setAccountNonLocked(resultSet.getBoolean("account_non_locked"));
+                user.setOrder(new Order(resultSet.getInt("order_id")));
+
+                users.add(user);
+            }
+            resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
+            if(resultSet.next()){
+                this.noOfRecords = resultSet.getInt(1);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return users;
     }
 
     @Override
@@ -222,6 +256,11 @@ public class JDBCUserDao implements UserDao {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public int getNoOfRecords() {
+        return noOfRecords;
     }
 
     private User extractFromResultSet(ResultSet resultSet) throws SQLException{

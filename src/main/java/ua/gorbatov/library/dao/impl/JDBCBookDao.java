@@ -12,6 +12,7 @@ import java.util.List;
 
 public class JDBCBookDao implements BookDao {
     private final Connection connection;
+    private int noOfRecords;
 
     public JDBCBookDao(Connection connection){
         this.connection = connection;
@@ -136,6 +137,39 @@ public class JDBCBookDao implements BookDao {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Book> findAll(int offset, int noOfRecords) {
+        List<Book> books = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("SELECT SQL_CALC_FOUND_ROWS * FROM book limit ?, ?")) {
+            ps.setInt(1, offset);
+            ps.setInt(2, noOfRecords);
+
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setId(resultSet.getInt("id"));
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setPublishDate(LocalDate.parse(resultSet.getString("publish_date")));
+                book.setPublisher(resultSet.getString("publisher"));
+                book.setQuantity(resultSet.getInt("quantity"));
+                books.add(book);
+            }
+
+            resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
+            if(resultSet.next()){
+                this.noOfRecords = resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return books;
+    }
+
+    public int getNoOfRecords(){
+        return noOfRecords;
     }
 
     @Override

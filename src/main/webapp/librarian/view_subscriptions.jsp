@@ -49,7 +49,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="order" items="${orders}" varStatus = "loopStatus">
+    <c:forEach var="order" items="${orders}">
     <tr>
         <td><c:out value="${order.id}"/></td>
         <td> <c:if test="${order.returned eq 'true'}">
@@ -73,7 +73,22 @@
     </c:forEach>
     </tbody>
 </table>
-
+    <c:if test="${currentPage != 1}">
+        <td><a href="/librarian/view_subscriptions?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
+    </c:if>
+    <c:forEach begin="1" end="${noOfPages}" var="i">
+        <c:choose>
+            <c:when test="${currentPage eq i}">
+                <td>${i}</td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="/librarian/view_subscriptions?page=${i}">${i}</a></td>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${currentPage lt noOfPages}">
+        <td><a href="/librarian/view_subscriptions?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
+    </c:if>
 
 </div>
 </body>

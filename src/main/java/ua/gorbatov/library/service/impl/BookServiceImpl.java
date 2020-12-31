@@ -34,6 +34,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findAll(int offset, int noOfRecords) {
+        return bookDao.findAll(offset, noOfRecords);
+    }
+
+    @Override
     public List<Book> findByAuthorOrTitle(String text) {
         return bookDao.findByTitleOrAuthor(text);
     }
@@ -51,5 +56,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(int id, String title, String author, String publisher, int quantity) {
         bookDao.updateBook(id, title, author, publisher, quantity);
+    }
+
+    @Override
+    public int getNoOfRecords() {
+        return bookDao.getNoOfRecords();
     }
 }

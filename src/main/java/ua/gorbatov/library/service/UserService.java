@@ -20,4 +20,6 @@ public interface UserService {
     List<User> findUsersWithOrders();
     void lockUser(int id);
     void unlockUser(int id);
+    List<User> findAll(int offset, int noOfRecords);
+    int getNoOfRecords();
 }

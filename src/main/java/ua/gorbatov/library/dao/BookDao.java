@@ -10,4 +10,8 @@ public interface BookDao extends GenericDao<Book>{
     void updateBook(int id, String title, String author, String publisher, int quantity);
 
     List<Book> findByTitleOrAuthor(String text);
+
+    List<Book> findAll(int offset, int noOfRecords);
+
+    int getNoOfRecords();
 }

@@ -14,6 +14,8 @@ public interface BookService {
 
     List<Book> findAll();
 
+    List<Book> findAll(int offset, int noOfRecords);
+
     List<Book> findByAuthorOrTitle(String text);
 
     void delete(int id);
@@ -21,4 +23,6 @@ public interface BookService {
     void updateBookQuantity(int bookId, int quantity);
 
     void updateBook(int id, String title, String author, String publisher, int quantity);
+
+    int getNoOfRecords();
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO return books when delete user
 public class UserDelete implements Command {
     private final UserService userService;
     private final OrderService orderService;
