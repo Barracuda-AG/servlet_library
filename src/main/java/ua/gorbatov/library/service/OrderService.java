@@ -18,4 +18,8 @@ public interface OrderService {
     List<Book> getBooksFromOrder(int orderId);
 
     int getLastId();
+
+    List<Order> findAll(int offset, int noOfRecords);
+
+    int getNoOfRecords();
 }

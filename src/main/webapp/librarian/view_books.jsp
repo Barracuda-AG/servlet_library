@@ -18,14 +18,24 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/cabinet"><fmt:message key="cabinet"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_readers"><fmt:message key="readers"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_subscriptions"><fmt:message key="subscriptions"/></a>
                 </li>
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="books.all"/></h2>
 <div>
     <table class="table table-striped">
@@ -36,26 +46,41 @@
             <th><fmt:message key="publisher"/></th>
             <th><fmt:message key="publish.date"/></th>
             <th><fmt:message key="quantity"/></th>
+
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="book" items="${books}" varStatus = "loopStatus">
+        <c:forEach var="book" items="${books}">
         <tr>
             <td><br><c:out value="${book.title}"/></td>
             <td><br><c:out value="${book.author}"/></td>
             <td><br><c:out value="${book.publisher}"/></td>
             <td><br><c:out value="${book.publishDate}"/></td>
             <td><br><c:out value="${book.quantity}"/></td>
-            <td> <button class="btn btn-primary" >
-                <fmt:message key="delete"/>
-            </button></td>
+
             </c:forEach>
         </tr>
         </tbody>
     </table>
+    <c:if test="${currentPage != 1}">
+        <td><a href="/librarian/view_books?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
+    </c:if>
+    <c:forEach begin="1" end="${noOfPages}" var="i">
+        <c:choose>
+            <c:when test="${currentPage eq i}">
+                <td>${i}</td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="/librarian/view_books?page=${i}">${i}</a></td>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${currentPage lt noOfPages}">
+        <td><a href="/librarian/view_books?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
+    </c:if>
 
 </div>
-
+</div>
 </body>
 </html>
 

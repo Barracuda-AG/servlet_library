@@ -19,12 +19,14 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}?locale=en">
-                        <img src="<c:url value="english.png"/>" width="30" height="20">
+<%--                        <fmt:message key="button.english"/>--%>
+                        <img src="<c:url value="image/english.jpg"/>" width="30" height="20">
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}?locale=uk_UA">
-                        <img src="<c:url value="ukraine.png"/>" width="30">
+                        <img src="<c:url value="image/ukraine.jpg"/>" width="30">
+<%--                                <fmt:message key="button.ukrainian"/>--%>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -37,9 +39,9 @@
         </nav>
     </div>
 </div>
-
+<div class="container">
 <h2><fmt:message key="welcome"/></h2>
-
+</div>
 </body>
 </html>
 

@@ -18,14 +18,24 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/cabinet"><fmt:message key="cabinet"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/addbook"><fmt:message key="book.add"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/view_books"><fmt:message key="books.all"/></a>
                 </li>
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="user.all"/></h2>
 <div>
     <table class="table table-striped">
@@ -35,30 +45,69 @@
             <th><fmt:message key="surname"/></th>
             <th><fmt:message key="email"/></th>
             <th><fmt:message key="role"/></th>
+            <th><fmt:message key="status"/></th>
             <th><fmt:message key="subscription"/></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-            <c:forEach var="user" items="${users}" varStatus = "loopStatus">
+            <c:forEach var="user" items="${users}">
             <tr>
             <td><br><c:out value="${user.firstName}"/></td>
             <td><br><c:out value="${user.lastName}"/></td>
             <td><br><c:out value="${user.email}"/></td>
             <td><br><c:out value="${user.role}"/></td>
-            <td><br>
-<%--                <c:out value="${user.order}"/>--%>
-                <c:out value="${empty user.order ? '' : user.order.id}" />
+                <td style="color:${user.accountNonLocked eq 'true' ? 'green' : 'red'}">
+                    <c:if test="${user.accountNonLocked eq 'true'}">
+                    <fmt:message key="unlocked"/>
+                </c:if>
+                    <c:if test="${user.accountNonLocked eq 'false'}">
+                        <fmt:message key="locked"/>
+                    </c:if>
+                </td>
+                <td><br>
+
+                <c:out value="${user.order.getId() == 0 ? '' : user.order.id}" />
             </td>
-                <td> <button class="btn btn-primary" >
-                    <fmt:message key="delete"/>
-                </button></td>
+                <td>
+                    <form  action="${pageContext.request.contextPath}/admin/edit_user" method="POST">
+                        <input type="hidden" name="id" value="${user.id}" />
+                        <button type="submit" class="btn btn-primary">
+                            <fmt:message key="edit"/>
+                        </button>
+                    </form>
+                </td>
+                <td><form action="${pageContext.request.contextPath}/admin/delete_user" method="POST">
+                    <input type="hidden" name="id" value="${user.id}">
+                    <button type="submit" class="btn btn-danger">
+                        <fmt:message key="delete"/>
+                    </button>
+
+                </form>
+                </td>
         </c:forEach>
         </tr>
         </tbody>
     </table>
-
+    <c:if test="${currentPage != 1}">
+        <td><a href="/admin/view_users?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
+    </c:if>
+    <c:forEach begin="1" end="${noOfPages}" var="i">
+        <c:choose>
+            <c:when test="${currentPage eq i}">
+                <td>${i}</td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="/admin/view_users?page=${i}">${i}</a></td>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${currentPage lt noOfPages}">
+        <td><a href="/admin/view_users?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
+    </c:if>
 </div>
-
+</div>
 </body>
 </html>
 

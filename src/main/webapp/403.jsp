@@ -17,20 +17,18 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.jsp"><fmt:message key="login"/></a>
+                    <form  method="POST" action="/logout">
+                        <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
+                    </form>
                 </li>
-               <li class="nav-item">
-                   <form  method="POST" action="/api/logout">
-                       <button type="submit"><fmt:message key="logout"/></button>
-                   </form>
-               </li>
+
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <h2><fmt:message key="access"/></h2>
-
-<a href="login.jsp"><fmt:message key="login"/></a>
+</div>
 </body>
 </html>
 

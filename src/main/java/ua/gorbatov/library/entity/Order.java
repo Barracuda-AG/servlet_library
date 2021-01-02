@@ -13,6 +13,9 @@ public class Order {
 
     public Order(){}
 
+    public Order(int id){
+        this.id = id;
+    }
     public Order(int id,LocalDate issueDate, LocalDate returnDate, boolean isReturned,
                  Integer penalty, List<Book> books) {
         this.id = id;

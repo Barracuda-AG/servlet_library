@@ -15,8 +15,4 @@ public class Logout implements Command{
         return "logout.jsp";
     }
 
-    @Override
-    public boolean checkPermission(HttpServletRequest request) {
-        return true;
-    }
 }

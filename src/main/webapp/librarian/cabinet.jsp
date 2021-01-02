@@ -18,19 +18,35 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="librarian/view_books"><fmt:message key="books.all"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_books"><fmt:message key="books.all"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_readers"><fmt:message key="readers"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/librarian/view_subscriptions"><fmt:message key="subscriptions"/></a>
                 </li>
             </ul>
         </nav>
     </div>
 </div>
-
+<div class="container">
 <h2><fmt:message key="login.success"/></h2>
-<h2><fmt:message key="librarian"/></h2>
+
+<h4><fmt:message key="librarian"/></h4>
+<div><c:out value="${user.email}"/></div>
+<hr>
+<h4><fmt:message key="name"/></h4>
+<div><c:out value="${user.firstName}"/></div>
+<hr>
+<h4><fmt:message key="surname"/></h4>
+<div><c:out value="${user.lastName}"/></div>
+
+</div>
 </body>
 </html>

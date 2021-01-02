@@ -1,5 +1,6 @@
 package ua.gorbatov.library.command.user;
 
+import ua.gorbatov.library.command.Command;
 import ua.gorbatov.library.constant.Constants;
 import ua.gorbatov.library.entity.Book;
 import ua.gorbatov.library.entity.Order;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MakeOrder extends AbstractUserCommand {
+public class MakeOrder implements Command {
     private final BookService bookService;
     private final OrderService orderService;
     private final UserService userService;
@@ -28,17 +29,20 @@ public class MakeOrder extends AbstractUserCommand {
     @Override
     public String execute(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Constants.USER);
+        user = userService.findById(user.getId());
         int id = user.getId();
         List<Book> booksToOrder = getBooksFromRequest(request);
+        String path = "/user/cabinet.jsp";
 
         if(booksToOrder.size() > 0 && user.getOrder() == null) {
             orderService.create(booksToOrder);
             Order order = orderService.findById(orderService.getLastId());
             userService.setOrderToUser(user, order);
             request.getSession().setAttribute(Constants.USER,userService.findById(id));
+            path = "/user/show_order";
         }
 
-        return "/user/cabinet.jsp";
+        return path;
     }
 
     private List<Book> getBooksFromRequest(HttpServletRequest request) {

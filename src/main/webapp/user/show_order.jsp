@@ -18,18 +18,21 @@
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form  method="POST" action="/api/logout">
+                    <form  method="POST" action="/logout">
                         <button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
                     </form>
                 </li>
                 <li class="nav-item">
-<%--                    <a class="nav-link" <c:redirect url="/user/cabinet.jsp"/> href="${url}"><fmt:message key="cabinet"/></a>--%>
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/cabinet.jsp"><fmt:message key="cabinet"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/view_books"><fmt:message key="books.all"/></a>
                 </li>
             </ul>
         </nav>
     </div>
 </div>
+<div class="container">
 <table class="table table-striped">
     <thead>
     <tr>
@@ -46,7 +49,7 @@
     </tr>
     </tbody>
 </table>
-
+<h3><fmt:message key="subscription"/> </h3>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -59,11 +62,11 @@
         <tr>
             <td><c:out value="${order.id}"/></td>
             <td><c:out value="${order.returnDate}"/></td>
-            <td><c:out value="${order.penalty}"/></td>
+            <td style="color:${order.penalty gt 0 ? 'red' : 'green'}"><c:out value="${order.penalty}"/></td>
         </tr>
     </tbody>
 </table>
-
+<h3><fmt:message key="books"/> </h3>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -75,7 +78,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="book" items="${books}" varStatus = "loopStatus">
+    <c:forEach var="book" items="${books}">
         <tr>
             <td><c:out value="${book.title}"/></td>
             <td><c:out value="${book.author}"/></td>
@@ -85,8 +88,18 @@
     </c:forEach>
     </tbody>
 </table>
+<form action="${pageContext.request.contextPath}/user/cancel_order" method="POST">
+    <input type="hidden" name="id" value="${order.id}">
+    <c:if test="${order ne null}">
+        <button type="submit" class="btn btn-primary">
+            <fmt:message key="books.return"/>
+        </button>
+    </c:if>
+
+</form>
 
 
+</div>
 </body>
 </html>
 

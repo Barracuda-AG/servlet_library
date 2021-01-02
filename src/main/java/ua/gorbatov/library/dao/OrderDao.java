@@ -8,4 +8,5 @@ import java.util.List;
 public interface OrderDao extends GenericDao<Order>{
     List<Book> getBooksFromOrder(int orderId);
     int getLastId();
+    int getNoOfRecords();
 }
