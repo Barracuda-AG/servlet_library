@@ -11,6 +11,8 @@ public interface BookDao extends GenericDao<Book>{
 
     List<Book> findByTitleOrAuthor(String text);
 
+    List<Book> findAll(int offset, int noOfRecords, String sort, String sortDir);
+
     List<Book> findAll(int offset, int noOfRecords);
 
     int getNoOfRecords();

@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/cabinet.jsp"><fmt:message key="cabinet"/></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/user/view_books"><fmt:message key="books.all"/></a>
+                </li>
             </ul>
         </nav>
     </div>

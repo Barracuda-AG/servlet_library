@@ -1,5 +1,6 @@
 package ua.gorbatov.library.dao.impl;
 
+import ua.gorbatov.library.constant.Constants;
 import ua.gorbatov.library.dao.BookDao;
 import ua.gorbatov.library.entity.Book;
 import ua.gorbatov.library.entity.Order;
@@ -140,9 +141,42 @@ public class JDBCBookDao implements BookDao {
     }
 
     @Override
-    public List<Book> findAll(int offset, int noOfRecords) {
+    public List<Book> findAll(int offset, int noOfRecords, String sort, String sortDir) {
         List<Book> books = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("SELECT SQL_CALC_FOUND_ROWS * FROM book limit ?, ?")) {
+        String sqlStatement = Constants.FIND_BOOKS;
+        if(sortDir.equals(Constants.ASC)) {
+            switch (sort) {
+                case Constants.TITLE:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_TITLE_ASC;
+                    break;
+                case Constants.AUTHOR:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_AUTHOR_ASC;
+                    break;
+                case Constants.PUBLISHER:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_PUBLISHER_ASC;
+                    break;
+                case Constants.DATE:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_DATE_ASC;
+                    break;
+            }
+        }
+        else {
+            switch (sort) {
+                case Constants.TITLE:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_TITLE_DESC;
+                    break;
+                case Constants.AUTHOR:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_AUTHOR_DESC;
+                    break;
+                case Constants.PUBLISHER:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_PUBLISHER_DESC;
+                    break;
+                case Constants.DATE:
+                    sqlStatement = Constants.FIND_BOOKS_SORT_DATE_DESC;
+                    break;
+            }
+        }
+        try (PreparedStatement ps = connection.prepareStatement(sqlStatement)) {
             ps.setInt(1, offset);
             ps.setInt(2, noOfRecords);
 
@@ -180,6 +214,33 @@ public class JDBCBookDao implements BookDao {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public List<Book> findAll(int offset, int noOfRecords) {
+        List<Book> books = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("SELECT SQL_CALC_FOUND_ROWS * FROM book limit ?, ?")) {
+            ps.setInt(1, offset);
+            ps.setInt(2, noOfRecords);
 
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Book book = new Book();
+                book.setId(resultSet.getInt("id"));
+                book.setTitle(resultSet.getString("title"));
+                book.setAuthor(resultSet.getString("author"));
+                book.setPublishDate(LocalDate.parse(resultSet.getString("publish_date")));
+                book.setPublisher(resultSet.getString("publisher"));
+                book.setQuantity(resultSet.getInt("quantity"));
+                books.add(book);
+            }
+
+            resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
+            if(resultSet.next()){
+                this.noOfRecords = resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return books;
+    }
 
 }

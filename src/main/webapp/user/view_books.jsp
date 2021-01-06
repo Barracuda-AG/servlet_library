@@ -49,10 +49,10 @@
         <table class="table table-striped">
         <thead>
         <tr>
-            <th><fmt:message key="title"/></th>
-            <th><fmt:message key="author"/></th>
-            <th><fmt:message key="publisher"/></th>
-            <th><fmt:message key="publish.date"/></th>
+            <th><a href="/user/view_books?page=${currentPage}&sort=title&sortDir=${sortDir eq 'asc' ? 'desc' : 'asc'}"><fmt:message key="title"/></a></th>
+            <th><a href="/user/view_books?page=${currentPage}&sort=author&sortDir=${sortDir eq 'asc' ? 'desc' : 'asc'}"><fmt:message key="author"/></a></th>
+            <th><a href="/user/view_books?page=${currentPage}&sort=publisher&sortDir=${sortDir eq 'asc' ? 'desc' : 'asc'}"><fmt:message key="publisher"/></a></th>
+            <th><a href="/user/view_books?page=${currentPage}&sort=date&sortDir=${sortDir eq 'asc' ? 'desc' : 'asc'}"><fmt:message key="publish.date"/></a></th>
             <th><fmt:message key="quantity"/></th>
         </tr>
         </thead>
@@ -70,7 +70,7 @@
         </tbody>
     </table>
         <c:if test="${currentPage != 1}">
-            <td><a href="/user/view_books?page=${currentPage - 1}"><fmt:message key="previous"/></a></td>
+            <td><a href="/user/view_books?page=${currentPage - 1}&sort=${sort}&sortDir=${sortDir}"><fmt:message key="previous"/></a></td>
         </c:if>
         <c:forEach begin="1" end="${noOfPages}" var="i">
             <c:choose>
@@ -78,12 +78,12 @@
                     <td>${i}</td>
                 </c:when>
                 <c:otherwise>
-                    <td><a href="view_books?page=${i}">${i}</a></td>
+                    <td><a href="view_books?page=${i}&sort=${sort}&sortDir=${sortDir}">${i}</a></td>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
         <c:if test="${currentPage lt noOfPages}">
-            <td><a href="/user/view_books?page=${currentPage + 1}"><fmt:message key="next"/></a></td>
+            <td><a href="/user/view_books?page=${currentPage + 1}&sort=${sort}&sortDir=${sortDir}"><fmt:message key="next"/></a></td>
         </c:if>
     <br/>
         <br/>

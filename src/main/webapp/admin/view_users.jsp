@@ -57,7 +57,12 @@
             <td><br><c:out value="${user.firstName}"/></td>
             <td><br><c:out value="${user.lastName}"/></td>
             <td><br><c:out value="${user.email}"/></td>
-            <td><br><c:out value="${user.role}"/></td>
+            <td><br><c:if test="${user.role eq 'ROLE_USER'}">
+                <fmt:message key="user"/>
+            </c:if>
+                <c:if test="${user.role eq 'ROLE_LIBRARIAN'}">
+                    <fmt:message key="librarian"/>
+                </c:if></td>
                 <td style="color:${user.accountNonLocked eq 'true' ? 'green' : 'red'}">
                     <c:if test="${user.accountNonLocked eq 'true'}">
                     <fmt:message key="unlocked"/>

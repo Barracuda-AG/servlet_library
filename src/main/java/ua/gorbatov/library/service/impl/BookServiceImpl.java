@@ -34,6 +34,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<Book> findAll(int offset, int noOfRecords, String sort, String sortDir) {
+        return bookDao.findAll(offset, noOfRecords, sort, sortDir);
+    }
+    @Override
     public List<Book> findAll(int offset, int noOfRecords) {
         return bookDao.findAll(offset, noOfRecords);
     }

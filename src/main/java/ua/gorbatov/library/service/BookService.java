@@ -16,6 +16,8 @@ public interface BookService {
 
     List<Book> findAll(int offset, int noOfRecords);
 
+    List<Book> findAll(int offset, int noOfRecords, String sort, String sortDir);
+
     List<Book> findByAuthorOrTitle(String text);
 
     void delete(int id);

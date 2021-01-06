@@ -20,17 +20,29 @@ public class ViewBooks implements Command {
     public String execute(HttpServletRequest request) {
         int page = Constants.ONE;
         int recordsPerPage = Constants.SIX;
+        String sort = Constants.ID;
+        String sortDir = Constants.DESC;
 
         if(request.getParameter(Constants.PAGE) != null) {
             page = Integer.parseInt(request.getParameter(Constants.PAGE));
         }
-        List<Book> books = bookService.findAll((page - Constants.ONE)*recordsPerPage, recordsPerPage);
+        if(request.getParameter(Constants.SORT) != null){
+            sort = request.getParameter(Constants.SORT);
+        }
+        if(request.getParameter(Constants.SORT_DIR) != null){
+            sortDir = request.getParameter(Constants.SORT_DIR);
+        }
+
+        List<Book> books = bookService.findAll((page - Constants.ONE)*recordsPerPage, recordsPerPage, sort, sortDir);
         int noOfRecords = bookService.getNoOfRecords();
         int noOfPages = (int)Math.ceil(noOfRecords * Constants.ONE_DOUBLE/ recordsPerPage);
 
         request.setAttribute("books", books);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
+
+        request.setAttribute("sort", sort);
+        request.setAttribute("sortDir", sortDir);
 
         return "/user/view_books.jsp";
     }

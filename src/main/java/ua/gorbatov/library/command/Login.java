@@ -18,9 +18,7 @@ public class Login implements Command{
     @Override
     public String execute(HttpServletRequest request) {
         String path = "";
-//        if(!Objects.isNull(request.getSession().getAttribute(Constants.USER))) {
-//            return "user/cabinet";
-//        }
+
         String email = request.getParameter(Constants.EMAIL);
         String password = request.getParameter(Constants.PASSWORD);
         User user = userService.getUserByEmailPassword(email,password);
