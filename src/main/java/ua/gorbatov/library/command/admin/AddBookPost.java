@@ -14,10 +14,11 @@ public class AddBookPost implements Command {
     private final BookService bookService;
     private final StringValidator stringValidator;
 
-    public AddBookPost(){
+    public AddBookPost() {
         bookService = ServiceFactory.getInstance().getBookService();
         stringValidator = StringValidator.getInstance();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         String path = "/401.jsp";

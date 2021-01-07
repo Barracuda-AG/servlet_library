@@ -1,7 +1,6 @@
 package ua.gorbatov.library.service;
 
 import ua.gorbatov.library.entity.Book;
-import ua.gorbatov.library.entity.User;
 
 import java.time.LocalDate;
 import java.util.List;

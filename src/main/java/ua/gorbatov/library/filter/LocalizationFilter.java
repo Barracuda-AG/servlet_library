@@ -26,12 +26,12 @@ public class LocalizationFilter implements Filter {
 
         } else {
             String sessionLocale = (String) httpServletRequest.getSession().getAttribute(Constants.LOCALE);
-            if(isBlank(sessionLocale)){
+            if (isBlank(sessionLocale)) {
                 httpServletRequest.getSession().setAttribute(Constants.LOCALE, defaultLocale);
             }
         }
         httpServletRequest.getSession().getAttribute(Constants.LOCALE);
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
 
     }
 

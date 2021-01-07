@@ -12,7 +12,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao;
 
-    public OrderServiceImpl(){
+    public OrderServiceImpl() {
         JDBCDaoFactory jdbcDaoFactory = new JDBCDaoFactory();
         orderDao = jdbcDaoFactory.createOrderDao();
     }
@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void create(List<Book> books) {
-        Order order = new Order(orderDao.getLastId() + 1,LocalDate.now(), LocalDate.now().plusDays(10),
+        Order order = new Order(orderDao.getLastId() + 1, LocalDate.now(), LocalDate.now().plusDays(10),
                 false, 0, books);
         orderDao.create(order);
     }

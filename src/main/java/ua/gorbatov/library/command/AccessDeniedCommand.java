@@ -2,7 +2,7 @@ package ua.gorbatov.library.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AccessDeniedCommand implements Command{
+public class AccessDeniedCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         return "/403.jsp";

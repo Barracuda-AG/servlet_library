@@ -14,18 +14,19 @@ public class CancelOrder implements Command {
     private final OrderService orderService;
     private final BookService bookService;
 
-    public CancelOrder(){
+    public CancelOrder() {
         orderService = ServiceFactory.getInstance().getOrderService();
         bookService = ServiceFactory.getInstance().getBookService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         String id = request.getParameter("orderId");
         List<Book> books = orderService.getBooksFromOrder(Integer.parseInt(id));
         orderService.delete(Integer.parseInt(id));
 
-        for(Book book: books){
-            bookService.updateBookQuantity(book.getId(), book.getQuantity()+1);
+        for (Book book : books) {
+            bookService.updateBookQuantity(book.getId(), book.getQuantity() + 1);
         }
         return "/librarian/view_readers";
     }

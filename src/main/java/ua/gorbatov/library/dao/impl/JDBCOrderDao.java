@@ -30,7 +30,6 @@ public class JDBCOrderDao implements OrderDao {
             ps.setDate(5, Date.valueOf(entity.getReturnDate()));
 
             ps.execute();
-
             insertBooks(entity.getBooks(), entity.getId());
 
         } catch (SQLException e) {
@@ -48,7 +47,7 @@ public class JDBCOrderDao implements OrderDao {
             while (resultSet.next()) {
                 order = extractFromResultSet(resultSet);
             }
-            if(order != null)checkPenalty(order);
+            if (order != null) checkPenalty(order);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -63,7 +62,7 @@ public class JDBCOrderDao implements OrderDao {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 Order order = extractFromResultSet(resultSet);
-                if(order != null) checkPenalty(order);
+                if (order != null) checkPenalty(order);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -102,7 +101,7 @@ public class JDBCOrderDao implements OrderDao {
             throw new RuntimeException(e);
         }
     }
-//TODO Transaction
+
     private void insertBooks(List<Book> books, int orderId) throws SQLException {
         PreparedStatement ps = connection.prepareStatement("INSERT INTO orders_books (order_id, books_id) VALUES (?,?)");
         PreparedStatement ps1 = connection.prepareStatement("UPDATE book SET quantity = quantity - 1 WHERE id = ?");
@@ -165,15 +164,17 @@ public class JDBCOrderDao implements OrderDao {
 
         return order;
     }
-    private void checkPenalty(Order order) throws SQLException{
-        if(order.getReturnDate().isBefore(LocalDate.now()) && !order.isReturned() && order.getPenalty() == 0){
+
+    private void checkPenalty(Order order) throws SQLException {
+        if (order.getReturnDate().isBefore(LocalDate.now()) && !order.isReturned() && order.getPenalty() == 0) {
             PreparedStatement ps = connection.prepareStatement("UPDATE orders SET penalty = 50 WHERE id = ?");
             ps.setInt(1, order.getId());
             ps.execute();
             order.setPenalty(50);
         }
     }
-    public List<Order> findAll(int offset, int noOfRecords){
+
+    public List<Order> findAll(int offset, int noOfRecords) {
         List<Order> orders = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT SQL_CALC_FOUND_ROWS * FROM orders LIMIT ?, ?")) {
             ps.setInt(1, offset);
@@ -192,10 +193,10 @@ public class JDBCOrderDao implements OrderDao {
             }
 
             resultSet = ps.executeQuery("SELECT FOUND_ROWS()");
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 this.noOfRecords = resultSet.getInt(1);
             }
-            for(Order order: orders){
+            for (Order order : orders) {
                 order.setBooks(getBooksFromOrder(order.getId()));
                 checkPenalty(order);
             }
@@ -205,7 +206,7 @@ public class JDBCOrderDao implements OrderDao {
         return orders;
     }
 
-    public int getNoOfRecords(){
+    public int getNoOfRecords() {
         return noOfRecords;
     }
 }

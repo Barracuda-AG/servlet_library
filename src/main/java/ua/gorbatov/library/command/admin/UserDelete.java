@@ -28,13 +28,12 @@ public class UserDelete implements Command {
         String idString = request.getParameter("id");
         int id = Integer.parseInt(idString);
         User user = userService.findById(id);
-        List<Book> books = new ArrayList<>();
 
-        if(user.getOrder() != null) {
+        if (user.getOrder() != null) {
             int orderId = user.getOrder().getId();
-            books = user.getOrder().getBooks();
+            List<Book> books = user.getOrder().getBooks();
             orderService.delete(orderId);
-            for(Book book: books){
+            for (Book book : books) {
                 bookService.updateBookQuantity(book.getId(), book.getQuantity() + 1);
             }
         }

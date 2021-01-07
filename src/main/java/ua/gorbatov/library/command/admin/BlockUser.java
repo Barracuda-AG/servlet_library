@@ -11,17 +11,17 @@ public class BlockUser implements Command {
 
     private final UserService userService;
 
-    public BlockUser(){
+    public BlockUser() {
         userService = ServiceFactory.getInstance().getUserService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         String id = request.getParameter("id");
         User user = userService.findById(Integer.parseInt(id));
-        if(user.isAccountNonLocked()) {
+        if (user.isAccountNonLocked()) {
             userService.lockUser(Integer.parseInt(id));
-        }
-        else {
+        } else {
             userService.unlockUser(Integer.parseInt(id));
         }
 

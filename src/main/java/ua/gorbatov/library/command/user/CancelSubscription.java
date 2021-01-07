@@ -7,7 +7,6 @@ import ua.gorbatov.library.entity.User;
 import ua.gorbatov.library.factory.ServiceFactory;
 import ua.gorbatov.library.service.BookService;
 import ua.gorbatov.library.service.OrderService;
-import ua.gorbatov.library.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -33,8 +32,8 @@ public class CancelSubscription implements Command {
         user.setOrder(null);
         request.getSession().setAttribute(Constants.USER, user);
 
-        for(Book book: books){
-            bookService.updateBookQuantity(book.getId(), book.getQuantity()+1);
+        for (Book book : books) {
+            bookService.updateBookQuantity(book.getId(), book.getQuantity() + 1);
         }
         return "/user/show_order";
     }

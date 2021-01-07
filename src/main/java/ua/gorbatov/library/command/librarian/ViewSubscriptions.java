@@ -12,7 +12,7 @@ import java.util.List;
 public class ViewSubscriptions implements Command {
     private final OrderService orderService;
 
-    public ViewSubscriptions(){
+    public ViewSubscriptions() {
         orderService = ServiceFactory.getInstance().getOrderService();
     }
 
@@ -21,12 +21,12 @@ public class ViewSubscriptions implements Command {
         int page = Constants.ONE;
         int recordsPerPage = Constants.SIX;
 
-        if(request.getParameter(Constants.PAGE) != null) {
+        if (request.getParameter(Constants.PAGE) != null) {
             page = Integer.parseInt(request.getParameter(Constants.PAGE));
         }
-        List<Order> orders = orderService.findAll((page - Constants.ONE)*recordsPerPage, recordsPerPage);
+        List<Order> orders = orderService.findAll((page - Constants.ONE) * recordsPerPage, recordsPerPage);
         int noOfRecords = orderService.getNoOfRecords();
-        int noOfPages = (int)Math.ceil(noOfRecords * Constants.ONE_DOUBLE / recordsPerPage);
+        int noOfPages = (int) Math.ceil(noOfRecords * Constants.ONE_DOUBLE / recordsPerPage);
 
         request.setAttribute("orders", orders);
         request.setAttribute("noOfPages", noOfPages);

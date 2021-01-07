@@ -14,21 +14,25 @@ public class ServiceFactory {
     private final OrderService orderService;
     private final BookService bookService;
 
-    private ServiceFactory(){
+    private ServiceFactory() {
         userService = new UserServiceImpl();
         orderService = new OrderServiceImpl();
         bookService = new BookServiceImpl();
     }
-    public static ServiceFactory getInstance(){
+
+    public static ServiceFactory getInstance() {
         return SERVICE_FACTORY;
     }
-    public UserService getUserService(){
+
+    public UserService getUserService() {
         return userService;
     }
-    public OrderService getOrderService(){
+
+    public OrderService getOrderService() {
         return orderService;
     }
-    public BookService getBookService(){
+
+    public BookService getBookService() {
         return bookService;
     }
 }

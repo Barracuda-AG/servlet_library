@@ -1,6 +1,7 @@
 package ua.gorbatov.library.entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Book {
     private int id;
@@ -11,7 +12,8 @@ public class Book {
     private Integer quantity;
 
 
-    public Book(){}
+    public Book() {
+    }
 
     public Book(String title, String author, String publisher, LocalDate publishDate, Integer quantity) {
         this.title = title;
@@ -67,6 +69,19 @@ public class Book {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return title.equals(book.title) && author.equals(book.author) && publisher.equals(book.publisher) && publishDate.equals(book.publishDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, publisher, publishDate);
     }
 
     @Override

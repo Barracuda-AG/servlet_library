@@ -24,11 +24,10 @@ public class AuthenticationFilter implements Filter {
 
         String path = httpServletRequest.getRequestURL().toString();
         User user = (User) httpServletRequest.getSession().getAttribute(Constants.USER);
-        Role currentRole = (Role)httpServletRequest.getSession().getAttribute(Constants.ROLE);
+        Role currentRole = (Role) httpServletRequest.getSession().getAttribute(Constants.ROLE);
         if (currentRole == null) {
             httpServletResponse.sendRedirect("redirect: /api/login");
-        }
-        else if (path.contains("admin/") && currentRole.equals(Role.ROLE_ADMIN)) {
+        } else if (path.contains("admin/") && currentRole.equals(Role.ROLE_ADMIN)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else if (path.contains("librarian/") && currentRole.equals(Role.ROLE_LIBRARIAN) && user.isAccountNonLocked()) {
             filterChain.doFilter(servletRequest, servletResponse);
@@ -40,7 +39,7 @@ public class AuthenticationFilter implements Filter {
     }
 
     @Override
-    public void destroy(){
+    public void destroy() {
 
     }
 }

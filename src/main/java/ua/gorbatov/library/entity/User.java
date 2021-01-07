@@ -12,7 +12,7 @@ public class User {
     private String lastName;
     private boolean isAccountNonLocked;
 
-    public User(){
+    public User() {
 
     }
 

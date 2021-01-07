@@ -10,15 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 public class EditBook implements Command {
     private final BookService bookService;
 
-    public EditBook(){
+    public EditBook() {
         bookService = ServiceFactory.getInstance().getBookService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         String idString = request.getParameter("id");
 
         Book bookToEdit = bookService.findById(Integer.parseInt(idString));
-        request.setAttribute("book",bookToEdit);
+        request.setAttribute("book", bookToEdit);
 
         return "/admin/edit_book.jsp";
     }

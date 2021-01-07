@@ -12,7 +12,7 @@ public class FindBooks implements Command {
 
     private final BookService bookService;
 
-    public FindBooks(){
+    public FindBooks() {
         bookService = ServiceFactory.getInstance().getBookService();
     }
 

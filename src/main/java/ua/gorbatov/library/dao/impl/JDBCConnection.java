@@ -10,10 +10,10 @@ public class JDBCConnection {
     private static final String PASSWORD = "root";
     private static DataSource dataSource;
 
-    public static DataSource getDataSource(){
-        if(dataSource == null){
-            synchronized (JDBCConnection.class){
-                if(dataSource == null){
+    public static DataSource getDataSource() {
+        if (dataSource == null) {
+            synchronized (JDBCConnection.class) {
+                if (dataSource == null) {
                     BasicDataSource ds = new BasicDataSource();
                     ds.setUrl(URL);
                     ds.setUsername(USER);

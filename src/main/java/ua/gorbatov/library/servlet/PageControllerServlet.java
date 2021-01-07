@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class PageControllerServlet extends HttpServlet {
     private static final CommandFactory COMMAND_FACTORY = CommandFactory.getCommandFactory();
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
@@ -26,8 +26,8 @@ public class PageControllerServlet extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Command command = COMMAND_FACTORY.createCommand(req);
 
-            String path = command.execute(req);
-            req.getRequestDispatcher(path).forward(req, resp);
+        String path = command.execute(req);
+        req.getRequestDispatcher(path).forward(req, resp);
     }
 
 }

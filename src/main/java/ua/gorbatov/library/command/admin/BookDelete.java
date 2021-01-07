@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 public class BookDelete implements Command {
     private final BookService bookService;
 
-    public BookDelete(){
+    public BookDelete() {
         bookService = ServiceFactory.getInstance().getBookService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         String idString = request.getParameter("id");

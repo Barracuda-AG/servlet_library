@@ -8,10 +8,6 @@ import java.util.List;
 public interface UserDao extends GenericDao<User> {
     void setOrderToUser(User user, Order order);
 
-    List<User> findOnlyLibrarians();
-
-    List<User> findOnlyUsers();
-
     User findAdmin();
 
     void changeRoleToLibrarian(int userId);

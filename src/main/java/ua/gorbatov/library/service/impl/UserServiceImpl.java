@@ -1,14 +1,10 @@
 package ua.gorbatov.library.service.impl;
 
-import ua.gorbatov.library.dao.BookDao;
 import ua.gorbatov.library.dao.UserDao;
 import ua.gorbatov.library.dao.impl.JDBCDaoFactory;
-import ua.gorbatov.library.entity.Book;
 import ua.gorbatov.library.entity.Order;
 import ua.gorbatov.library.entity.Role;
 import ua.gorbatov.library.entity.User;
-import ua.gorbatov.library.factory.ServiceFactory;
-import ua.gorbatov.library.service.BookService;
 import ua.gorbatov.library.service.UserService;
 
 import java.util.List;
@@ -41,16 +37,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllUsers() {
         return userDao.findAll();
-    }
-
-    @Override
-    public List<User> findOnlyLibrarians() {
-        return userDao.findOnlyLibrarians();
-    }
-
-    @Override
-    public List<User> findOnlyUsers() {
-        return userDao.findOnlyUsers();
     }
 
     @Override
@@ -87,6 +73,7 @@ public class UserServiceImpl implements UserService {
     public void lockUser(int id) {
         userDao.lockUser(id);
     }
+
     @Override
     public void unlockUser(int id) {
         userDao.unlockUser(id);

@@ -1,7 +1,7 @@
 package ua.gorbatov.library.constant;
 
 public class Constants {
-    public static final String USER= "user";
+    public static final String USER = "user";
     public static final String LIBRARIAN = "librarian";
     public static final String ADMIN = "admin";
     public static final String EMAIL = "email";
@@ -19,7 +19,6 @@ public class Constants {
     public static final int ONE = 1;
     public static final int SIX = 6;
     public static final double ONE_DOUBLE = 1.0;
-    public static final int TWO = 2;
     public static final String ASC = "asc";
     public static final String DESC = "desc";
 

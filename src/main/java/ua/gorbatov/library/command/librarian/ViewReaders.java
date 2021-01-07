@@ -11,9 +11,10 @@ import java.util.List;
 public class ViewReaders implements Command {
     private final UserService userService;
 
-    public ViewReaders(){
+    public ViewReaders() {
         userService = ServiceFactory.getInstance().getUserService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         List<User> users = userService.findUsersWithOrders();

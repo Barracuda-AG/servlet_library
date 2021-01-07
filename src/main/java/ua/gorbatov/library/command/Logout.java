@@ -3,9 +3,10 @@ package ua.gorbatov.library.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class Logout implements Command{
+public class Logout implements Command {
 
     public static final String LOCALE = "locale";
+
     @Override
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

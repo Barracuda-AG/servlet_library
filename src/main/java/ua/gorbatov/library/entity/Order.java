@@ -11,12 +11,14 @@ public class Order {
     private Integer penalty;
     private List<Book> books;
 
-    public Order(){}
+    public Order() {
+    }
 
-    public Order(int id){
+    public Order(int id) {
         this.id = id;
     }
-    public Order(int id,LocalDate issueDate, LocalDate returnDate, boolean isReturned,
+
+    public Order(int id, LocalDate issueDate, LocalDate returnDate, boolean isReturned,
                  Integer penalty, List<Book> books) {
         this.id = id;
         this.issueDate = issueDate;

@@ -13,9 +13,10 @@ public class ViewBooks implements Command {
 
     private final BookService bookService;
 
-    public ViewBooks(){
+    public ViewBooks() {
         bookService = ServiceFactory.getInstance().getBookService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         int page = Constants.ONE;
@@ -23,19 +24,19 @@ public class ViewBooks implements Command {
         String sort = Constants.ID;
         String sortDir = Constants.DESC;
 
-        if(request.getParameter(Constants.PAGE) != null) {
+        if (request.getParameter(Constants.PAGE) != null) {
             page = Integer.parseInt(request.getParameter(Constants.PAGE));
         }
-        if(request.getParameter(Constants.SORT) != null){
+        if (request.getParameter(Constants.SORT) != null) {
             sort = request.getParameter(Constants.SORT);
         }
-        if(request.getParameter(Constants.SORT_DIR) != null){
+        if (request.getParameter(Constants.SORT_DIR) != null) {
             sortDir = request.getParameter(Constants.SORT_DIR);
         }
 
-        List<Book> books = bookService.findAll((page - Constants.ONE)*recordsPerPage, recordsPerPage, sort, sortDir);
+        List<Book> books = bookService.findAll((page - Constants.ONE) * recordsPerPage, recordsPerPage, sort, sortDir);
         int noOfRecords = bookService.getNoOfRecords();
-        int noOfPages = (int)Math.ceil(noOfRecords * Constants.ONE_DOUBLE/ recordsPerPage);
+        int noOfPages = (int) Math.ceil(noOfRecords * Constants.ONE_DOUBLE / recordsPerPage);
 
         request.setAttribute("books", books);
         request.setAttribute("noOfPages", noOfPages);

@@ -8,12 +8,13 @@ import java.util.regex.Pattern;
 public class StringValidator {
     private static final StringValidator stringValidator = new StringValidator();
 
-    private StringValidator(){
+    private StringValidator() {
     }
 
-    public static StringValidator getInstance(){
+    public static StringValidator getInstance() {
         return stringValidator;
     }
+
     public static final String REG_EXP_NAME = "^[A-Za-zА-ЩЬЮЯҐІЇЄа-щьюяґіїє' ]{1,20}";
 
     public static final String REG_EXP_PASSWORD = "^[a-zA-Z0-9_.$!]{2,30}";
@@ -22,36 +23,41 @@ public class StringValidator {
 
     public static final String REG_EXP_EMAIL = "(\\w+)@(\\w+\\.)(\\w+)";
 
-    public boolean checkEmail(String emailToCheck){
+    public boolean checkEmail(String emailToCheck) {
         Pattern pattern = Pattern.compile(REG_EXP_EMAIL);
         Matcher matcher = pattern.matcher(emailToCheck);
         return matcher.matches();
     }
-    public boolean checkName(String nameToCheck){
+
+    public boolean checkName(String nameToCheck) {
         Pattern pattern = Pattern.compile(REG_EXP_NAME);
         Matcher matcher = pattern.matcher(nameToCheck);
         return matcher.matches();
     }
 
-    public boolean checkPassword(String passwordToCheck){
+    public boolean checkPassword(String passwordToCheck) {
         Pattern pattern = Pattern.compile(REG_EXP_PASSWORD);
         Matcher matcher = pattern.matcher(passwordToCheck);
         return matcher.matches();
     }
-    public boolean checkBookTitle(String bookTitle){
+
+    public boolean checkBookTitle(String bookTitle) {
         Pattern pattern = Pattern.compile(REG_EXP_BOOK_TITLE);
         Matcher matcher = pattern.matcher(bookTitle);
         return matcher.matches();
     }
-    public boolean checkDate(String localDate){
+
+    public boolean checkDate(String localDate) {
         return Objects.nonNull(localDate);
     }
-    public boolean checkInteger(String integerString){
-        if(integerString.isEmpty()) return false;
+
+    public boolean checkInteger(String integerString) {
+        if (integerString.isEmpty()) return false;
 
         int integer = Integer.parseInt(integerString);
         return integer > 0;
     }
+
     public boolean checkBookParameters(String title, String author, String publisher, String publishDateString, String quantity) {
         boolean name = checkBookTitle(title);
         boolean auth = checkBookTitle(author);

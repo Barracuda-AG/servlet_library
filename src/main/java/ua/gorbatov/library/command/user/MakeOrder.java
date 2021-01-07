@@ -34,11 +34,11 @@ public class MakeOrder implements Command {
         List<Book> booksToOrder = getBooksFromRequest(request);
         String path = "/user/cabinet.jsp";
 
-        if(booksToOrder.size() > 0 && user.getOrder() == null) {
+        if (booksToOrder.size() > 0 && user.getOrder() == null) {
             orderService.create(booksToOrder);
             Order order = orderService.findById(orderService.getLastId());
             userService.setOrderToUser(user, order);
-            request.getSession().setAttribute(Constants.USER,userService.findById(id));
+            request.getSession().setAttribute(Constants.USER, userService.findById(id));
             path = "/user/show_order";
         }
 

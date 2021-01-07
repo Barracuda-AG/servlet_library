@@ -15,17 +15,18 @@ public class ViewBooks implements Command {
     public ViewBooks() {
         bookService = ServiceFactory.getInstance().getBookService();
     }
+
     @Override
     public String execute(HttpServletRequest request) {
         int page = Constants.ONE;
         int recordsPerPage = Constants.SIX;
 
-        if(request.getParameter(Constants.PAGE) != null) {
+        if (request.getParameter(Constants.PAGE) != null) {
             page = Integer.parseInt(request.getParameter(Constants.PAGE));
         }
-        List<Book> books = bookService.findAll((page - Constants.ONE)*recordsPerPage, recordsPerPage);
+        List<Book> books = bookService.findAll((page - Constants.ONE) * recordsPerPage, recordsPerPage);
         int noOfRecords = bookService.getNoOfRecords();
-        int noOfPages = (int)Math.ceil(noOfRecords * Constants.ONE_DOUBLE/ recordsPerPage);
+        int noOfPages = (int) Math.ceil(noOfRecords * Constants.ONE_DOUBLE / recordsPerPage);
 
         request.setAttribute("books", books);
         request.setAttribute("noOfPages", noOfPages);
