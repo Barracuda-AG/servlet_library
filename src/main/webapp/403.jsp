@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class ="container">
+<header>
     <div>
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
@@ -25,7 +25,7 @@
             </ul>
         </nav>
     </div>
-</div>
+</header>
 <div class="container">
 <h2><fmt:message key="access"/></h2>
 </div>

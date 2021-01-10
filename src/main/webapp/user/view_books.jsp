@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div class ="container">
+<header>
     <div>
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
@@ -31,7 +31,7 @@
             </ul>
         </nav>
     </div>
-</div>
+</header>
 <br/>
 <div class="container">
 

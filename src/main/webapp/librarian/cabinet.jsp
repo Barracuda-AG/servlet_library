@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div class ="container">
+<header>
     <div>
         <nav class="navbar navbar-expand bg-light" >
             <ul class="navbar-nav">
@@ -34,7 +34,7 @@
             </ul>
         </nav>
     </div>
-</div>
+</header>
 <div class="container">
 <h2><fmt:message key="login.success"/></h2>
 
